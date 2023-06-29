@@ -1,0 +1,186 @@
+<%- include('partials/header'); %>
+  <header>
+    <h1>NUEVA VENTA</h1>
+  </header>
+  <div class="form-container">
+    <h1>Formulario de Venta</h1>
+    <form id="product-form">
+      <div class="form-group">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px" class="form-group">
+        <label for="option">Tipo:</label>
+        <select id="option-tipo" name="option-tipo" required>
+          <option value="1">Perro</option>
+          <option value="2">Gato</option>
+          <option value="3">Otros</option>
+        </select>
+        <label for="price">KG</label>
+        <input type="number" id="peso" name="peso" required />
+      </div>
+      <div class="form-group">
+        <label for="price">Monto:</label>
+        <input type="number" id="price" name="price" required />
+      </div>
+      <button style="background-color: rgb(93, 150, 93)" id="sumarTextoButton" class="form-button">
+        Sumar
+      </button>
+
+      <div class="ticket-container">
+        <div id="total-lista">
+          <!-- <div class="ticket__item">
+          <span>
+            Producto: pan Precio: $100 cantidad: 1
+          </span>
+          <button>
+            <span class="material-symbols-outlined">
+              delete
+            </span>
+          </button>
+        </div> -->
+        </div>
+        <!-- <textarea id="ticket-text" rows="10" readonly></textarea> -->
+        <p>Total: <textarea id="total-text" rows="1" readonly>0</textarea></p>
+      </div>
+      <div class="form-group">
+        <div class="form-group">
+          <label for="option">Metodo de pago:</label>
+          <select id="option" name="option" required>
+            <option value="1">Efectivo</option>
+            <option value="2">Debito</option>
+            <option value="3">Credito</option>
+            <option value="4">Transferencia</option>
+          </select>
+        </div>
+      </div>
+    </form>
+    <button class="form-button">Imprimir Tiket!</button>
+    <button style="background-color: rgba(184, 46, 46, 0.767)" class="form-button" onclick="location.href='/'">
+      Atras
+    </button>
+  </div>
+  <script>
+    window.ticketListaItems = [];
+
+    function dibujarItems() {
+
+      console.log("Lista", window.ticketListaItems)
+
+      const $totalLista = document.getElementById("total-lista");
+
+      removerItems($totalLista);
+
+      window.ticketListaItems.map((aTicketListaItem, index) => {
+
+        const $div = document.createElement("div");
+        $div.classList.add("ticket__item");
+
+        const $spanDescripcion = document.createElement("span");
+
+        $spanDescripcion.innerHTML = `Producto: ${aTicketListaItem.name} ${aTicketListaItem.tipos} de ${aTicketListaItem.peso}kg - Precio: $${aTicketListaItem.price} \n`;
+
+        $div.appendChild($spanDescripcion);
+
+        const $buttonBorrar = document.createElement("button");
+
+        const $spanIcon = document.createElement("span");
+
+        $spanIcon.classList.add("material-symbols-outlined");
+
+        $spanIcon.innerHTML = "delete";
+
+        $buttonBorrar.appendChild($spanIcon);
+
+        $div.appendChild($buttonBorrar);
+        $div.setAttribute("id", index);
+        $totalLista.appendChild($div);
+
+        $buttonBorrar.addEventListener("click", (event) => {
+
+          const $div = event.currentTarget.parentNode;
+          const id = $div.getAttribute("id");
+
+          window.ticketListaItems.splice(id, 1)
+
+          console.log(window.ticketListaItems)
+
+          dibujarItems()
+        });
+      });
+    }
+
+    function removerItems($totalLista) {
+      let child = $totalLista.lastElementChild;
+      while (child) {
+        $totalLista.removeChild(child);
+        child = $totalLista.lastElementChild;
+      }
+    }
+
+    sumarTextoButton.addEventListener("click", (event) => {
+      let name = document.getElementById("name").value;
+      let price = document.getElementById("price").value;
+      let option = document.getElementById("option").value;
+      let optionTipo = document.getElementById("option-tipo").value;
+      let peso = document.getElementById("peso").value;
+      const tipos = ["Perro", "Gato", "Otros"];
+      const sumarTextoButton = document.getElementById("sumarTextoButton");
+
+      window.ticketListaItems.push({ name, price, tipos: tipos[optionTipo - 1], peso });
+
+      dibujarItems()
+
+      let total = document.getElementById("total-text");
+      let montoTotal = parseInt(total.value) + parseInt(price);
+
+      total.value = montoTotal;
+
+      document.getElementById("name").value = "";
+      document.getElementById("price").value = 0;
+      document.getElementById("peso").value = 0;
+    });
+
+    const form = document.getElementById("product-form");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      let name = document.getElementById("name").value;
+      let price = document.getElementById("price").value;
+      let option = document.getElementById("option").value;
+      let optionTipo = document.getElementById("option-tipo").value;
+      let peso = document.getElementById("peso").value;
+
+      const tipos = ["Perro", "Gato", "Otros"];
+      optionTipo = tipos[optionTipo - 1];
+
+      const pago = ["Efectivo", "Debito", "Credito", "Transferencia"];
+      option = pago[option - 1];
+
+      let formData = {
+        name,
+        price,
+        option,
+        optionTipo,
+        peso,
+      };
+
+      fetch("http://localhost:3000/nueva-venta", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => {
+          response.json();
+        })
+        .then((data) => {
+          console.log("Respuesta del servidor:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+  </script>
+  <%- include('partials/footer'); %>

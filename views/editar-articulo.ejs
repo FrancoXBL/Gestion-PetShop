@@ -1,0 +1,26 @@
+<%- include('partials/header'); %>
+<header>
+  <h1>Articulos:</h1>
+</header>
+<div class="list-container">
+
+  <table class="button-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(let i=0; i < lista.length; i++) { %>
+      <tr>
+        <td><%= lista[i].Alimento %></td>
+        <td><%= lista[i].Tipo %></td>
+        <td>$<%= lista[i].Precio %></td>
+        <td><button class="edit-button">Editar</button><button style="background-color: red;" class="edit-button">Eliminar</button></td>
+      </tr>
+      <% } %>
+</div>
+<%- include('partials/footer'); %>

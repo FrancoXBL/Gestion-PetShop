@@ -1,0 +1,66 @@
+<%- include('partials/header'); %>
+<header>
+  <h1>AGREGAR ARTICULO</h1>
+</header>
+<h1>Producto</h1>
+<div class="form-container">
+  <h1>Formulario de Producto</h1>
+  <form id="product-form">
+    <div class="form-group">
+      <label for="name">Nombre:</label>
+      <input type="text" id="name" name="name" required />
+    </div>
+    <div class="form-group">
+      <label for="price">Precio:</label>
+      <input type="number" id="price" name="price" required />
+    </div>
+    <div class="form-group">
+        <label for="option">Opción:</label>
+        <select id="option" name="option" required>
+          <option value="">Tipo:</option>
+          <option value="1">Perros</option>
+          <option value="2">Gatos</option>
+          <option value="3">Forraje</option>
+          <option value="4">Accesorios</option>
+          <option value="5">Otros</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="form-button">Enviar</button>
+      </div>
+    </form>
+</div>
+<script>
+  const form = document.getElementById("product-form")
+  form.addEventListener("submit", (event) => {
+      event.preventDefault(); 
+
+      var name = document.getElementById("name").value;
+      var price = document.getElementById("price").value;
+      var option = document.getElementById("option").value;
+
+      var formData = {
+        name,
+        price,
+        option
+      };
+
+      fetch("http://localhost:3000/new-article", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => {
+          response.json();
+        })
+        .then((data) => {
+          console.log("Respuesta del servidor:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+</script>
+<%- include('partials/footer'); %>

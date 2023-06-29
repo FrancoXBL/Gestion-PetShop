@@ -1,0 +1,39 @@
+<%- include('partials/header'); %>
+  <header>
+    <h1>Clientes:</h1>
+  </header>
+  <div class="list-container">
+    <table class="button-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Telefono</th>
+          <th>Direccion</th>
+          <th>Monto</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let i=0; i < clients.length; i++) { %>
+          <tr>
+            <td>
+              <%= clients[i].cliente %>
+            </td>
+            <td>
+              <%= clients[i].telefono %>
+            </td>
+            <td>
+              <%= clients[i].direccion %>
+            </td>
+            <td>
+              <%= clients[i].monto %>
+            </td>
+            <td>
+              <button class="edit-button">Editar</button>
+              <button style="background-color: red;" class="edit-button">Eliminar</button>
+            </td>
+          </tr>
+          <% } %>
+  </div>
+
+  <%- include('partials/footer'); %>
