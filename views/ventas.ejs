@@ -7,21 +7,21 @@
     <form id="product-form">
       <div class="form-group">
         <label for="name">Nombre:</label>
-        <input type="text" id="name" name="name" required />
+        <input type="text" id="name" name="name" />
       </div>
       <div style="display: flex; align-items: center; gap: 10px" class="form-group">
         <label for="option">Tipo:</label>
-        <select id="option-tipo" name="option-tipo" required>
+        <select id="option-tipo" name="option-tipo">
           <option value="1">Perro</option>
           <option value="2">Gato</option>
           <option value="3">Otros</option>
         </select>
         <label for="price">KG</label>
-        <input type="number" id="peso" name="peso" required />
+        <input type="number" id="peso" name="peso" />
       </div>
       <div class="form-group">
         <label for="price">Monto:</label>
-        <input type="number" id="price" name="price" required />
+        <input type="number" id="price" name="price" />
       </div>
       <button style="background-color: rgb(93, 150, 93)" id="sumarTextoButton" class="form-button">
         Sumar
@@ -54,8 +54,10 @@
           </select>
         </div>
       </div>
+      <button class="form-button">Imprimir Tiket!</button>
+      <button type="submit" style="background-color: rgb(76, 76, 134); margin-bottom: 5px;"
+        class="form-button">Completar venta!</button>
     </form>
-    <button class="form-button">Imprimir Tiket!</button>
     <button style="background-color: rgba(184, 46, 46, 0.767)" class="form-button" onclick="location.href='/'">
       Atras
     </button>
@@ -64,8 +66,6 @@
     window.ticketListaItems = [];
 
     function dibujarItems() {
-
-      console.log("Lista", window.ticketListaItems)
 
       const $totalLista = document.getElementById("total-lista");
 
@@ -119,51 +119,59 @@
     }
 
     sumarTextoButton.addEventListener("click", (event) => {
+
+      event.preventDefault()
+
       let name = document.getElementById("name").value;
       let price = document.getElementById("price").value;
-      let option = document.getElementById("option").value;
       let optionTipo = document.getElementById("option-tipo").value;
       let peso = document.getElementById("peso").value;
-      const tipos = ["Perro", "Gato", "Otros"];
-      const sumarTextoButton = document.getElementById("sumarTextoButton");
 
-      window.ticketListaItems.push({ name, price, tipos: tipos[optionTipo - 1], peso });
+      if (name == '' || price == '' || peso == '') {
+        alert('Complete todos los campos')
+      } else {
+        const tipos = ["Perro", "Gato", "Otros"];
 
-      dibujarItems()
+        const sumarTextoButton = document.getElementById("sumarTextoButton");
 
-      let total = document.getElementById("total-text");
-      let montoTotal = parseInt(total.value) + parseInt(price);
+        window.ticketListaItems.push({ name, price, tipos: tipos[optionTipo - 1], peso });
 
-      total.value = montoTotal;
+        console.log(window.ticketListaItems)
+        dibujarItems()
 
-      document.getElementById("name").value = "";
-      document.getElementById("price").value = 0;
-      document.getElementById("peso").value = 0;
+        let total = document.getElementById("total-text");
+        let montoTotal = parseInt(total.value) + parseInt(price);
+
+        total.value = montoTotal;
+
+        document.getElementById("name").value = "";
+        document.getElementById("price").value = '';
+        document.getElementById("peso").value = '';
+      }
     });
 
     const form = document.getElementById("product-form");
+
     form.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      let name = document.getElementById("name").value;
-      let price = document.getElementById("price").value;
       let option = document.getElementById("option").value;
-      let optionTipo = document.getElementById("option-tipo").value;
-      let peso = document.getElementById("peso").value;
-
-      const tipos = ["Perro", "Gato", "Otros"];
-      optionTipo = tipos[optionTipo - 1];
 
       const pago = ["Efectivo", "Debito", "Credito", "Transferencia"];
       option = pago[option - 1];
 
-      let formData = {
-        name,
-        price,
-        option,
-        optionTipo,
-        peso,
-      };
+      formData = [...window.ticketListaItems, { option }]
+      let total = document.getElementById("total-text");
+      total.value = 0;
+      document.getElementById("name").value = "";
+      document.getElementById("price").value = '';
+      document.getElementById("peso").value = '';
+
+      const $totalLista = document.getElementById("total-lista");
+      removerItems($totalLista)
+
+      alert('Listo! venta concretada!')
+
 
       fetch("http://localhost:3000/nueva-venta", {
         method: "POST",
