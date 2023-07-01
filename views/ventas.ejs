@@ -64,6 +64,17 @@
   </div>
   <script>
     window.ticketListaItems = [];
+    window.price = 0
+
+    function colocarPrecioTotal() {
+      let montoTotal = 0
+      window.ticketListaItems.map((item) => {
+        montoTotal += parseInt(item.price)
+        return montoTotal
+      })
+      let total = document.getElementById("total-text")
+      total.value = montoTotal
+    }
 
     function dibujarItems() {
 
@@ -106,7 +117,11 @@
           console.log(window.ticketListaItems)
 
           dibujarItems()
+
+          colocarPrecioTotal()
+
         });
+
       });
     }
 
@@ -139,10 +154,7 @@
         console.log(window.ticketListaItems)
         dibujarItems()
 
-        let total = document.getElementById("total-text");
-        let montoTotal = parseInt(total.value) + parseInt(price);
-
-        total.value = montoTotal;
+        colocarPrecioTotal()
 
         document.getElementById("name").value = "";
         document.getElementById("price").value = '';
