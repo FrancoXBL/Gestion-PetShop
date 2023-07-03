@@ -17,3 +17,9 @@
 .ticket__item button span{
 color: white;
 }
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}

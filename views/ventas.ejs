@@ -1,189 +1,206 @@
 <%- include('partials/header'); %>
-  <header>
-    <h1>NUEVA VENTA</h1>
-  </header>
-  <div class="form-container">
-    <h1>Formulario de Venta</h1>
-    <form id="product-form">
-      <div class="form-group">
-        <label for="name">Nombre:</label>
-        <input type="text" id="name" name="name" />
-      </div>
-      <div style="display: flex; align-items: center; gap: 10px" class="form-group">
-        <label for="option">Tipo:</label>
-        <select id="option-tipo" name="option-tipo">
-          <option value="1">Perro</option>
-          <option value="2">Gato</option>
-          <option value="3">Otros</option>
-        </select>
-        <label for="price">KG</label>
-        <input type="number" id="peso" name="peso" />
-      </div>
-      <div class="form-group">
-        <label for="price">Monto:</label>
-        <input type="number" id="price" name="price" />
-      </div>
-      <button style="background-color: rgb(93, 150, 93)" id="sumarTextoButton" class="form-button">
-        Sumar
-      </button>
-
-      <div class="ticket-container">
-        <div id="total-lista">
-          <!-- <div class="ticket__item">
-          <span>
-            Producto: pan Precio: $100 cantidad: 1
-          </span>
-          <button>
-            <span class="material-symbols-outlined">
-              delete
-            </span>
-          </button>
-        </div> -->
-        </div>
-        <!-- <textarea id="ticket-text" rows="10" readonly></textarea> -->
-        <p>Total: <textarea id="total-text" rows="1" readonly>0</textarea></p>
-      </div>
-      <div class="form-group">
-        <div class="form-group">
-          <label for="option">Metodo de pago:</label>
-          <select id="option" name="option" required>
-            <option value="1">Efectivo</option>
-            <option value="2">Debito</option>
-            <option value="3">Credito</option>
-            <option value="4">Transferencia</option>
-          </select>
-        </div>
-      </div>
-      <button class="form-button">Imprimir Tiket!</button>
-      <button type="submit" style="background-color: rgb(76, 76, 134); margin-bottom: 5px;"
-        class="form-button">Completar venta!</button>
-    </form>
-    <button style="background-color: rgba(184, 46, 46, 0.767)" class="form-button" onclick="location.href='/'">
-      Atras
+<header>
+  <h1>NUEVA VENTA</h1>
+</header>
+<div class="form-container">
+  <h1>Formulario de Venta</h1>
+  <form id="product-form">
+    <div class="form-group">
+      <label for="name">Producto:</label>
+      <input type="text" id="name" name="name" />
+    </div>
+    <div
+      style="display: flex; align-items: center; gap: 10px"
+      class="form-group"
+    >
+      <label for="option">Tipo:</label>
+      <select id="option-tipo" name="option-tipo">
+        <option value="1">Perro</option>
+        <option value="2">Gato</option>
+        <option value="3">Otros</option>
+      </select>
+      <label for="price">KG</label>
+      <input type="number" id="peso" name="peso" />
+    </div>
+    <div class="form-group">
+      <label for="price">Precio:</label>
+      <input type="number" id="price" name="price" />
+    </div>
+    <button
+      style="background-color: rgb(93, 150, 93)"
+      id="sumarTextoButton"
+      class="form-button"
+    >
+      Sumar
     </button>
-  </div>
-  <script>
-    window.ticketListaItems = [];
-    window.price = 0
+    <div id="ticket-container">
+      <h3>TIKET VENTA</h3>
+      <div id="total-lista"></div>
+      <p>Total: <textarea id="total-text" rows="1" readonly>0</textarea></p>
+    </div>
+    <div class="form-group">
+      <div class="form-group">
+        <label for="option">Metodo de pago:</label>
+        <select id="option" name="option" required>
+          <option value="1">Efectivo</option>
+          <option value="2">Debito</option>
+          <option value="3">Credito</option>
+          <option value="4">Transferencia</option>
+        </select>
+      </div>
+    </div>
+    <div class="space-between">
+      <button
+        type="submit"
+        style="background-color: rgb(76, 76, 134); margin-bottom: 5px"
+        class="form-button"
+      >
+        Completar venta!
+      </button>
+      <button type="button" id="printButtom" class="form-button">
+        Imprimir Tiket!
+      </button>
+    </div>
+  </form>
+  <button
+    style="background-color: rgba(184, 46, 46, 0.767)"
+    class="form-button"
+    onclick="location.href='/'"
+  >
+    Atras
+  </button>
+</div>
+<script>
+  console.log("asdasdas");
+  window.ticketListaItems = [];
+  window.price = 0;
 
-    function colocarPrecioTotal() {
-      let montoTotal = 0
-      window.ticketListaItems.map((item) => {
-        montoTotal += parseInt(item.price)
-        return montoTotal
-      })
-      let total = document.getElementById("total-text")
-      total.value = montoTotal
-    }
-
-    function dibujarItems() {
-
-      const $totalLista = document.getElementById("total-lista");
-
-      removerItems($totalLista);
-
-      window.ticketListaItems.map((aTicketListaItem, index) => {
-
-        const $div = document.createElement("div");
-        $div.classList.add("ticket__item");
-
-        const $spanDescripcion = document.createElement("span");
-
-        $spanDescripcion.innerHTML = `Producto: ${aTicketListaItem.name} ${aTicketListaItem.tipos} de ${aTicketListaItem.peso}kg - Precio: $${aTicketListaItem.price} \n`;
-
-        $div.appendChild($spanDescripcion);
-
-        const $buttonBorrar = document.createElement("button");
-
-        const $spanIcon = document.createElement("span");
-
-        $spanIcon.classList.add("material-symbols-outlined");
-
-        $spanIcon.innerHTML = "delete";
-
-        $buttonBorrar.appendChild($spanIcon);
-
-        $div.appendChild($buttonBorrar);
-        $div.setAttribute("id", index);
-        $totalLista.appendChild($div);
-
-        $buttonBorrar.addEventListener("click", (event) => {
-
-          const $div = event.currentTarget.parentNode;
-          const id = $div.getAttribute("id");
-
-          window.ticketListaItems.splice(id, 1)
-
-          console.log(window.ticketListaItems)
-
-          dibujarItems()
-
-          colocarPrecioTotal()
-
-        });
-
-      });
-    }
-
-    function removerItems($totalLista) {
-      let child = $totalLista.lastElementChild;
-      while (child) {
-        $totalLista.removeChild(child);
-        child = $totalLista.lastElementChild;
-      }
-    }
-
-    sumarTextoButton.addEventListener("click", (event) => {
-
-      event.preventDefault()
-
-      let name = document.getElementById("name").value;
-      let price = document.getElementById("price").value;
-      let optionTipo = document.getElementById("option-tipo").value;
-      let peso = document.getElementById("peso").value;
-
-      if (name == '' || price == '' || peso == '') {
-        alert('Complete todos los campos')
-      } else {
-        const tipos = ["Perro", "Gato", "Otros"];
-
-        const sumarTextoButton = document.getElementById("sumarTextoButton");
-
-        window.ticketListaItems.push({ name, price, tipos: tipos[optionTipo - 1], peso });
-
-        console.log(window.ticketListaItems)
-        dibujarItems()
-
-        colocarPrecioTotal()
-
-        document.getElementById("name").value = "";
-        document.getElementById("price").value = '';
-        document.getElementById("peso").value = '';
-      }
+  function colocarPrecioTotal() {
+    let montoTotal = 0;
+    window.ticketListaItems.map((item) => {
+      montoTotal += parseInt(item.price);
+      return montoTotal;
     });
+    let total = document.getElementById("total-text");
+    total.value = montoTotal;
+  }
 
-    const form = document.getElementById("product-form");
+  function dibujarItems() {
+    const $totalLista = document.getElementById("total-lista");
 
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
+    removerItems($totalLista);
 
+    window.ticketListaItems.map((aTicketListaItem, index) => {
+      const $div = document.createElement("div");
+      $div.classList.add("ticket__item");
+
+      const $spanDescripcion = document.createElement("span");
+
+      $spanDescripcion.innerHTML =
+        `${aTicketListaItem.name} ${aTicketListaItem.tipos} de ${aTicketListaItem.peso}kg - $${aTicketListaItem.price}`.toUpperCase();
+
+      $div.appendChild($spanDescripcion);
+
+      const $buttonBorrar = document.createElement("button");
+
+      const $spanIcon = document.createElement("span");
+
+      $spanIcon.classList.add("material-symbols-outlined");
+
+      $spanIcon.innerHTML = "delete";
+
+      $buttonBorrar.appendChild($spanIcon);
+
+      $div.appendChild($buttonBorrar);
+      $div.setAttribute("id", index);
+      $totalLista.appendChild($div);
+
+      $buttonBorrar.addEventListener("click", (event) => {
+        const $div = event.currentTarget.parentNode;
+        const id = $div.getAttribute("id");
+
+        window.ticketListaItems.splice(id, 1);
+
+        dibujarItems();
+
+        colocarPrecioTotal();
+      });
+    });
+  }
+  function removerItems($totalLista) {
+    let child = $totalLista.lastElementChild;
+    while (child) {
+      $totalLista.removeChild(child);
+      child = $totalLista.lastElementChild;
+    }
+  }
+
+  sumarTextoButton.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    let name = document.getElementById("name").value.toUpperCase();
+    let price = document.getElementById("price").value;
+    let optionTipo = document.getElementById("option-tipo").value;
+    let peso = document.getElementById("peso").value;
+
+    if (name == "" || price == "" || peso == "") {
+      alert("Complete todos los campos");
+    } else {
+      const tipos = ["PERRO", "GATO", "OTROS"];
+
+      const sumarTextoButton = document.getElementById("sumarTextoButton");
+
+      window.ticketListaItems.push({
+        name,
+        price,
+        tipos: tipos[optionTipo - 1],
+        peso,
+      });
+
+      dibujarItems();
+
+      colocarPrecioTotal();
+
+      document.getElementById("name").value = "";
+      document.getElementById("price").value = "";
+      document.getElementById("peso").value = "";
+    }
+  });
+
+  const printButtom = document.getElementById("printButtom");
+  printButtom.addEventListener("click", (event) => {
+    event.preventDefault();
+    const backup = document.body.innerHTML;
+    document.body.innerHTML =
+      document.querySelector("#ticket-container").innerHTML;
+    window.print();
+    document.body.innerHTML = backup;
+  });
+
+  const form = document.getElementById("product-form");
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    if (window.ticketListaItems.length == 0) {
+      alert("Suma un producto al tiket antes de concretar venta");
+    } else {
       let option = document.getElementById("option").value;
 
-      const pago = ["Efectivo", "Debito", "Credito", "Transferencia"];
+      const pago = ["EFECTIVO", "DEBITO", "CREDITO", "TRANSFERENCIA"];
       option = pago[option - 1];
 
-      formData = [...window.ticketListaItems, { option }]
+      formData = [...window.ticketListaItems, { option }];
       let total = document.getElementById("total-text");
+      window.ticketListaItems = [];
       total.value = 0;
       document.getElementById("name").value = "";
-      document.getElementById("price").value = '';
-      document.getElementById("peso").value = '';
+      document.getElementById("price").value = "";
+      document.getElementById("peso").value = "";
 
       const $totalLista = document.getElementById("total-lista");
-      removerItems($totalLista)
+      removerItems($totalLista);
 
-      alert('Listo! venta concretada!')
-
+      alert("Listo! venta concretada!");
 
       fetch("http://localhost:3000/nueva-venta", {
         method: "POST",
@@ -201,6 +218,9 @@
         .catch((error) => {
           console.error("Error:", error);
         });
-    });
-  </script>
-  <%- include('partials/footer'); %>
+
+      formData = [];
+    }
+  });
+</script>
+<%- include('partials/footer'); %>
