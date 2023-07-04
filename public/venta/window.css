@@ -1,0 +1,37 @@
+.window {
+    position: fixed;
+    top: 40%;
+    left: 70%;
+    width: 200px;
+    height: 110px;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: none;
+  }
+  
+  .window-content {
+    text-align: center;
+    gap: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .window-button {
+    width: 90px;
+    height: 90px;
+    padding: 0;
+    margin-bottom: 5px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .visible {
+    display: block;
+  }

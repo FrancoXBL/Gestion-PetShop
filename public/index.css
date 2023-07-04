@@ -1,5 +1,7 @@
 @import url(./venta/ticket__item.css);
+@import url(./venta/window.css);
 @import url(./variables.css);
+
 
 body {
   font-family: Arial, sans-serif;

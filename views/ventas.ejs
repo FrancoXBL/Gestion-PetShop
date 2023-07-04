@@ -57,11 +57,21 @@
       >
         Completar venta!
       </button>
-      <button type="button" id="printButtom" class="form-button">
-        Imprimir Tiket!
-      </button>
     </div>
   </form>
+  <div id="window" class="window">
+    <div class="window-content">
+      <h3>VENTA CONCRETADA!</h3>
+    </div>
+    <div class="window-content">
+      <button style="background-color: rgb(76, 76, 134)" type="button" id="printButtom" class="window-button">
+        Imprimir Tiket!
+      </button>
+      <button onclick="cerrarVentana()" id="button2" class="window-button">
+        Cerrar
+      </button>
+    </div>
+  </div>
   <button
     style="background-color: rgba(184, 46, 46, 0.767)"
     class="form-button"
@@ -71,7 +81,11 @@
   </button>
 </div>
 <script>
-  console.log("asdasdas");
+  function cerrarVentana() {
+    var windowElement = document.getElementById("window");
+    windowElement.classList.toggle("visible");
+  }
+
   window.ticketListaItems = [];
   window.price = 0;
 
@@ -84,7 +98,6 @@
     let total = document.getElementById("total-text");
     total.value = montoTotal;
   }
-
   function dibujarItems() {
     const $totalLista = document.getElementById("total-lista");
 
@@ -171,8 +184,7 @@
   printButtom.addEventListener("click", (event) => {
     event.preventDefault();
     const backup = document.body.innerHTML;
-    document.body.innerHTML =
-      document.querySelector("#ticket-container").innerHTML;
+    document.body.innerHTML = `<p>${textPrint}</p>`
     window.print();
     document.body.innerHTML = backup;
   });
@@ -188,9 +200,10 @@
 
       const pago = ["EFECTIVO", "DEBITO", "CREDITO", "TRANSFERENCIA"];
       option = pago[option - 1];
-
-      formData = [...window.ticketListaItems, { option }];
       let total = document.getElementById("total-text");
+      textTotal = total.value
+      forPrint = [...window.ticketListaItems]
+      formData = [...window.ticketListaItems, { option }];
       window.ticketListaItems = [];
       total.value = 0;
       document.getElementById("name").value = "";
@@ -199,8 +212,6 @@
 
       const $totalLista = document.getElementById("total-lista");
       removerItems($totalLista);
-
-      alert("Listo! venta concretada!");
 
       fetch("http://localhost:3000/nueva-venta", {
         method: "POST",
@@ -219,6 +230,18 @@
           console.error("Error:", error);
         });
 
+      textPrint = `<p style="font-size: 30px;
+  text-align: center;">TIKET DE VENTA</p><hr>`
+
+      forPrint.map((data, index) => {
+       let {name, price, tipos, peso} = data
+        textPrint += `<p>${name} ${tipos} de ${peso} - $${price}</p>`
+      })
+
+      textPrint += `<hr><p style="font-size: 20px;">Total: $${textTotal} - ${option}</p>`
+
+      let windowElement = document.getElementById("window");
+      windowElement.classList.toggle("visible");
       formData = [];
     }
   });
