@@ -151,7 +151,7 @@
   sumarTextoButton.addEventListener("click", (event) => {
     event.preventDefault();
 
-    let name = document.getElementById("name").value.toUpperCase();
+    let name = document.getElementById("name").value
     let price = document.getElementById("price").value;
     let optionTipo = document.getElementById("option-tipo").value;
     let peso = document.getElementById("peso").value;
@@ -159,7 +159,7 @@
     if (name == "" || price == "" || peso == "") {
       alert("Complete todos los campos");
     } else {
-      const tipos = ["PERRO", "GATO", "OTROS"];
+      const tipos = ["PERRO", "GATO","FORRAJE","ACCESORIOS", "OTROS"];
 
       const sumarTextoButton = document.getElementById("sumarTextoButton");
 
@@ -215,7 +215,7 @@
       const $totalLista = document.getElementById("total-lista");
       removerItems($totalLista);
 
-      fetch("http://localhost:3000/nueva-venta", {
+      fetch("/nueva-venta", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

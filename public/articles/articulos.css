@@ -1,0 +1,15 @@
+.vistaPrevia{
+    text-align: center;
+    gap: 5px;
+    display: block;
+    height: 50%;
+}
+
+.vistaPrevia p {
+    font-size: 40px;
+}
+
+.vistaPrevia span {
+    font-size: 40px;
+    font-weight: bold;
+}

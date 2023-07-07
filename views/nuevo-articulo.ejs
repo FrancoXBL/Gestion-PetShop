@@ -1,66 +1,116 @@
 <%- include('partials/header'); %>
-<header>
-  <h1>AGREGAR ARTICULO</h1>
-</header>
-<h1>Producto</h1>
-<div class="form-container">
-  <h1>Formulario de Producto</h1>
-  <form id="product-form">
-    <div class="form-group">
-      <label for="name">Nombre:</label>
-      <input type="text" id="name" name="name" required />
-    </div>
-    <div class="form-group">
-      <label for="price">Precio:</label>
-      <input type="number" id="price" name="price" required />
-    </div>
-    <div class="form-group">
-        <label for="option">Opción:</label>
-        <select id="option" name="option" required>
-          <option value="">Tipo:</option>
-          <option value="1">Perros</option>
-          <option value="2">Gatos</option>
+  <header>
+    <h1>NUEVO ARTICULO</h1>
+  </header>
+  <div class="form-container">
+    <h1>CREACION ARTICULO</h1>
+    <form id="product-form">
+      <div class="form-group">
+        <label for="name">Nombre Producto:</label>
+        <input type="text" id="name" name="name" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px" class="form-group">
+        <label for="option">Tipo:</label>
+        <select id="option-tipo" name="option-tipo">
+          <option value="1">Perro</option>
+          <option value="2">Gato</option>
           <option value="3">Forraje</option>
           <option value="4">Accesorios</option>
           <option value="5">Otros</option>
         </select>
+        <label for="price">KG</label>
+        <input type="number" id="peso" name="peso" />
       </div>
       <div class="form-group">
-        <button type="submit" class="form-button">Enviar</button>
+        <label for="price">Precio:</label>
+        <input type="number" id="price" name="price" />
       </div>
+      <button onclick="mostrarVentana()">Siguiente</button>
+      <div id="window" class="window">
+        <div class="vistaPrevia">
+          <h4>VISTA PREVIA</h4>
+          <p>Alimento:<span id="vistaPreviaAlimento"></span></p>
+          <p>Tipo:<span id="vistaPreviaTipo"></span></p>
+          <p>Peso:<span id="vistaPreviaPeso"></span></p>
+          <p>Precio:<span id="vistaPreviaPrecio"></span></p>
+        </div>
+        <div class="window-content">
+          <button type="submit" style="background-color: rgb(76, 76, 134); margin-bottom: 5px" class="form-button">
+            Aceptar y Crear!
+          </button>
+          <button onclick="cerrarVentana()" id="button2" class="window-button">
+            Cerrar
+          </button>
+        </div>
+      </div>
+      <button style="background-color: rgba(184, 46, 46, 0.767)" class="form-button" onclick="location.href='/'">
+        Atras
+      </button>
     </form>
-</div>
-<script>
-  const form = document.getElementById("product-form")
-  form.addEventListener("submit", (event) => {
-      event.preventDefault(); 
+    </div>
+  <script>
+    function mostrarVentana(){
+      event.preventDefault()
 
-      var name = document.getElementById("name").value;
-      var price = document.getElementById("price").value;
-      var option = document.getElementById("option").value;
+      let name = document.getElementById("name").value.toUpperCase();
+      let option = document.getElementById("option-tipo").value;
+      let peso = document.getElementById("peso").value;
+      let price = document.getElementById("price").value;
+      optionTipo = ["PERRO", "GATO", "FORRAJE", "ACCESORIOS", "OTROS"]
 
-      var formData = {
-        name,
-        price,
-        option
-      };
+      if (name == "" || price == "" || peso == "") {
+        alert("Complete todos los campos");
+      } else {
 
-      fetch("http://localhost:3000/new-article", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      })
-        .then((response) => {
-          response.json();
+      const formData = { name, tipo: optionTipo[option - 1], peso, price }
+      console.log(formData)
+
+      const vpName = document.getElementById("vistaPreviaAlimento")
+      const vpTipo = document.getElementById("vistaPreviaTipo")
+      const vpPeso = document.getElementById("vistaPreviaPeso")
+      const vpPrecio = document.getElementById("vistaPreviaPrecio")
+
+      vpName.innerHTML = name
+      vpTipo.innerHTML = optionTipo[option - 1]
+      vpPeso.innerHTML = peso
+      vpPrecio.innerHTML = price
+
+      let windowElement = document.getElementById("window");
+      windowElement.classList.toggle("visible");
+
+      document.getElementById("name").value = "";
+      document.getElementById("price").value = "";
+      document.getElementById("peso").value = "";
+    }}
+    function cerrarVentana() {
+      event.preventDefault()
+      var windowElement = document.getElementById("window");
+      windowElement.classList.toggle("visible");
+    }
+
+    const form = document.getElementById("product-form");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault()
+
+
+        fetch("/new-article", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         })
-        .then((data) => {
-          console.log("Respuesta del servidor:", data);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    });
-</script>
-<%- include('partials/footer'); %>
+          .then((response) => {
+            response.json();
+          })
+          .then((data) => {
+            console.log("Respuesta del servidor:", data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          })
+      }
+    )
+  </script>
+
+  <%- include('partials/footer'); %>
