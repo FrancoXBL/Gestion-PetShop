@@ -25,7 +25,7 @@
         <label for="price">Precio:</label>
         <input type="number" id="price" name="price" />
       </div>
-      <button onclick="mostrarVentana()">Siguiente</button>
+      <button type="button" style="background-color: rgb(93, 150, 93)" class="form-button" id="next">Siguiente</button>
       <div id="window" class="window">
         <div class="vistaPrevia">
           <h4>VISTA PREVIA</h4>
@@ -35,7 +35,8 @@
           <p>Precio:<span id="vistaPreviaPrecio"></span></p>
         </div>
         <div class="window-content">
-          <button type="submit" style="background-color: rgb(76, 76, 134); margin-bottom: 5px" class="form-button">
+          <button type="submit" style="background-color: rgb(76, 76, 134); margin-bottom: 5px" id="submitForm"
+            class="form-button">
             Aceptar y Crear!
           </button>
           <button onclick="cerrarVentana()" id="button2" class="window-button">
@@ -47,10 +48,11 @@
         Atras
       </button>
     </form>
-    </div>
+  </div>
   <script>
-    function mostrarVentana(){
-      event.preventDefault()
+    nextButton = document.getElementById("next")
+    console.log(nextButton)
+    nextButton.addEventListener('click', (event) => {
 
       let name = document.getElementById("name").value.toUpperCase();
       let option = document.getElementById("option-tipo").value;
@@ -62,26 +64,25 @@
         alert("Complete todos los campos");
       } else {
 
-      const formData = { name, tipo: optionTipo[option - 1], peso, price }
-      console.log(formData)
+        window.formData = { name, tipo: optionTipo[option - 1], peso, price }
 
-      const vpName = document.getElementById("vistaPreviaAlimento")
-      const vpTipo = document.getElementById("vistaPreviaTipo")
-      const vpPeso = document.getElementById("vistaPreviaPeso")
-      const vpPrecio = document.getElementById("vistaPreviaPrecio")
+        const vpName = document.getElementById("vistaPreviaAlimento")
+        const vpTipo = document.getElementById("vistaPreviaTipo")
+        const vpPeso = document.getElementById("vistaPreviaPeso")
+        const vpPrecio = document.getElementById("vistaPreviaPrecio")
 
-      vpName.innerHTML = name
-      vpTipo.innerHTML = optionTipo[option - 1]
-      vpPeso.innerHTML = peso
-      vpPrecio.innerHTML = price
+        vpName.innerHTML = name
+        vpTipo.innerHTML = optionTipo[option - 1]
+        vpPeso.innerHTML = peso
+        vpPrecio.innerHTML = price
 
-      let windowElement = document.getElementById("window");
-      windowElement.classList.toggle("visible");
+        let windowElement = document.getElementById("window");
+        windowElement.classList.toggle("visible");
 
-      document.getElementById("name").value = "";
-      document.getElementById("price").value = "";
-      document.getElementById("peso").value = "";
-    }}
+        document.getElementById("name").value = "";
+        document.getElementById("price").value = "";
+        document.getElementById("peso").value = "";
+      }})
     function cerrarVentana() {
       event.preventDefault()
       var windowElement = document.getElementById("window");
@@ -91,25 +92,25 @@
     const form = document.getElementById("product-form");
     form.addEventListener("submit", (event) => {
       event.preventDefault()
-
-
-        fetch("/new-article", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+      fetch("/new-article", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(window.formData),
+      })
+        .then((response) => {
+          response.json();
         })
-          .then((response) => {
-            response.json();
-          })
-          .then((data) => {
-            console.log("Respuesta del servidor:", data);
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          })
-      }
+        .then((data) => {
+          console.log("Respuesta del servidor:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        })
+
+        cerrarVentana()
+    }
     )
   </script>
 
