@@ -10,30 +10,39 @@
           <th>Telefono</th>
           <th>Direccion</th>
           <th>Monto</th>
-          <th>Editar</th>
+          <th>Editar o Eliminar</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="lista-total">
         <% for(let i=0; i < clients.length; i++) { %>
-          <tr>
+          <tr id="client-<%= i %>">
             <td>
-              <%= clients[i].cliente %>
+              <span id="cliente-<%= i %>"><%= clients[i].cliente %></span>
             </td>
             <td>
-              <%= clients[i].telefono %>
+              <span id="telefono-<%= i %>"><%= clients[i].telefono %></span>
             </td>
             <td>
-              <%= clients[i].direccion %>
+              <span id="direccion-<%= i %>"><%= clients[i].direccion %></span>
             </td>
             <td>
-              <%= clients[i].monto %>
+              <span id="monto-<%= i %>"><%= clients[i].monto %></span>
             </td>
             <td>
-              <button class="edit-button">Editar</button>
-              <button style="background-color: red;" class="edit-button">Eliminar</button>
+              <a class="edit-button" onclick="editClient(<%= i %>)">Editar</a>
+              <a style="background-color: red;" class="edit-button" onclick="deleteClient(<%= i %>)">Eliminar</a>
             </td>
           </tr>
-          <% } %>
-  </div>
+        <% } %>
 
+  </div>
+  <script>
+  function editClient(index) {
+    location.href=`editar-cliente-id/${index}`
+  }
+
+  function deleteClient(index) {
+    location.href=`eliminar-articulo-id/${index}`
+  }
+  </script>
   <%- include('partials/footer'); %>
