@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema gestion</title>
+    <link rel="stylesheet" href="../../public/index.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body>
+    <div class="form-container">
+        <h1>ACTUALIZAR DATOS</h1>
+        <form id="product-form">
+            <div class="form-group">
+                <label for="name">Nombre Articulo:</label>
+                <input type="text" id="name" name="name" value="<%= article.alimento %>" />
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px" class="form-group">
+                <label for="peso">KG:</label>
+                <input type="text" id="peso" name="peso" value="<%= article.peso %>" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="tipo">Tipo:</label>
+                <input type="text" id="tipo" name="tipo" value="<%= article.tipo.toUpperCase() %>" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="stock">Stock:</label>
+                <input type="number" id="stock" name="stock" value="<%= article.stock %>" />
+            </div>
+            <div class="form-group">
+                <label for="precio">Precio:</label>
+                <input type="number" id="precio" name="precio" value="<%= article.precio %>" />
+            </div>
+            <button type="button" style="background-color: rgb(93, 150, 93)" class="form-button"
+                id="next">Siguiente</button>
+            <div id="window" class="window">
+                <div class="window-content">
+                    <h4>VISTA PREVIA</h4>
+                    <p>Articulo:<span id="vistaPreviaArticulo"></span></p>
+                    <p>Peso:<span id="vistaPreviaPeso"></span></p>
+                    <p>Tipo:<span id="vistaPreviaTipo"></span></p>
+                    <p>Monto:<span id="vistaPreviaMonto"></span></p>
+                    <p>Stock:<span id="vistaPreviaStock"></span></p>
+                </div>
+                <div class="window-content">
+                    <button type="submit" style="background-color: rgb(76, 76, 134); margin-bottom: 5px" id="submitForm"
+                        class="form-button">
+                        Aceptar y Actualizar!
+                    </button>
+                    <button onclick="cerrarVentana()" id="button2" class="window-button">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </form>
+        <button style="background-color: rgba(184, 46, 46, 0.767); margin-top: 5px;" class="form-button"
+            onclick="location.href='/edit-article'">
+            Atras
+        </button>
+
+        <script>
+            nextButton = document.getElementById("next")
+            nextButton.addEventListener('click', (event) => {
+                event.preventDefault()
+
+                let name = document.getElementById("name").value.toUpperCase();
+                let peso = document.getElementById("peso").value;
+                let tipo = document.getElementById("tipo").value;
+                let precio = document.getElementById("precio").value;
+                let stock = document.getElementById("stock").value;
+
+                if (name == "" || peso == "" || precio == "" || stock == "") {
+                    alert("Complete todos los campos");
+                } else {
+
+                    window.formData = { name, peso, tipo, precio, stock }
+
+                    const vpArticulo = document.getElementById("vistaPreviaArticulo")
+                    const vpPeso = document.getElementById("vistaPreviaPeso")
+                    const vpTipo = document.getElementById("vistaPreviaTipo")
+                    const vpMonto = document.getElementById("vistaPreviaMonto")
+                    const vpStock = document.getElementById("vistaPreviaStock")
+
+                    vpArticulo.innerHTML = name
+                    vpPeso.innerHTML = peso
+                    vpTipo.innerHTML = tipo
+                    vpMonto.innerHTML = precio
+                    vpStock.innerHTML = stock
+
+                    let windowElement = document.getElementById("window");
+                    windowElement.classList.toggle("visible");
+
+                }
+            })
+            function cerrarVentana() {
+                event.preventDefault()
+                var windowElement = document.getElementById("window");
+                windowElement.classList.toggle("visible");
+            }
+
+            const form = document.getElementById("product-form");
+            form.addEventListener("submit", (event) => {
+                event.preventDefault()
+                fetch("/edit-article-id", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(window.formData),
+                })
+                    .then((response) => {
+                        response.json();
+                    })
+                    .then((data) => {
+                        console.log("Respuesta del servidor:", data);
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    })
+
+                cerrarVentana()
+            }
+            )
+        </script>
+</body>
+
+</html>

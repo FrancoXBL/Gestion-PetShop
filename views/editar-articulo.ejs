@@ -1,26 +1,61 @@
 <%- include('partials/header'); %>
-<header>
-  <h1>Articulos:</h1>
-</header>
-<div class="list-container">
+  <header>
+    <h1>Articulos:</h1>
+  </header>
+  <div class="list-container">
+    <table class="button-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>KG</th>
+          <th>Tipo</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let i=0; i < lista.length; i++) { %>
+          <tr>
+            <td>
+              <span id="cliente-<%= i %>">
+                <%= lista[i].alimento %>
+              </span>
+            </td>
+            <td>
+              <span id="cliente-<%= i %>">
+                <%= lista[i].peso %>
+              </span>
+            </td>
+            <td>
+              <span id="cliente-<%= i %>">
+                <%= lista[i].tipo %>
+              </span>
+            </td>
+            <td>
+              <span id="cliente-<%= i %>">
+                <%= lista[i].precio %>
+              </span>
+            </td>
+            <td>
+              <span id="cliente-<%= i %>">
+                <%= lista[i].stock %>
+              </span>
+            </td>
+            <td>
+              <a class="edit-button" onclick="editClient(<%= i %>)">Editar</a>
+              <a style="background-color: red;" class="edit-button" onclick="deleteClient(<%= i %>)">Eliminar</a>
+            </td>
+          </tr>
+          <% } %>
+  </div>
+  <script>
+    function editClient(index) {
+      location.href = `edit-article-id/${index}`
+    }
 
-  <table class="button-table">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Tipo</th>
-        <th>Precio</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% for(let i=0; i < lista.length; i++) { %>
-      <tr>
-        <td><%= lista[i].Alimento %></td>
-        <td><%= lista[i].Tipo %></td>
-        <td>$<%= lista[i].Precio %></td>
-        <td><button class="edit-button">Editar</button><button style="background-color: red;" class="edit-button">Eliminar</button></td>
-      </tr>
-      <% } %>
-</div>
-<%- include('partials/footer'); %>
+    function deleteClient(index) {
+      location.href = `eliminar-articulo-id/${index}`
+    }
+  </script>
+  <%- include('partials/footer'); %>

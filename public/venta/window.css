@@ -14,10 +14,14 @@
     text-align: center;
     gap: 5px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 50%;
+  }
+
+  .window-content p {
+   display: block;
   }
   
   .window-button {

@@ -19,4 +19,17 @@ router.get("/edit-article", (req, res) => {
   res.render("editar-articulo", { lista });
 });
 
+router.get("/edit-article-id/:id", (req, res) =>{
+  const lista = obtenerLista()
+  const article = lista[req.params.id]
+  res.render("editar-articulo-id", {article})
+})
+
+router.post("/edit-article-id", (req, res) =>{
+  const data = req.body
+  console.log("Data desde el backend", data)
+})
+
+
+
 module.exports = router;

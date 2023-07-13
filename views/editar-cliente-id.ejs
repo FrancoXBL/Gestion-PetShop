@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema gestion</title>
+    <link rel="stylesheet" href="../../public/index.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body>
+    <div class="form-container">
+        <h1>ACTUALIZAR DATOS</h1>
+        <form id="product-form">
+            <div class="form-group">
+                <label for="name">Nombre Cliente:</label>
+                <input type="text" id="name" name="name" value="<%= client.cliente %>" />
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px" class="form-group">
+                <label for="telefono">Telefono:</label>
+                <input type="text" id="telefono" name="telefono" value="<%= client.telefono %>" />
+            </div>
+            <div class="form-group">
+                <label for="direccion">Direccion:</label>
+                <input type="text" id="direccion" name="direccion" value="<%= client.direccion %>" />
+            </div>
+            <div class="form-group">
+                <label for="monto">Monto:</label>
+                <input type="number" id="monto" name="monto" value="<%= client.monto %>" />
+            </div>
+            <button type="button" style="background-color: rgb(93, 150, 93)" class="form-button"
+                id="next">Siguiente</button>
+            <div id="window" class="window">
+                <div class="window-content">
+                    <h4>VISTA PREVIA</h4>
+                    <p>Nombre:<span id="vistaPreviaNombre"></span></p>
+                    <p>Telefono:<span id="vistaPreviaTelefono"></span></p>
+                    <p>Direccion:<span id="vistaPreviaDireccion"></span></p>
+                    <p>Monto:<span id="vistaPreviaMonto"></span></p>
+                </div>
+                <div class="window-content">
+                    <button type="submit" style="background-color: rgb(76, 76, 134); margin-bottom: 5px" id="submitForm"
+                        class="form-button">
+                        Aceptar y Actualizar!
+                    </button>
+                    <button onclick="cerrarVentana()" id="button2" class="window-button">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </form>
+        <button style="background-color: rgba(184, 46, 46, 0.767); margin-top: 5px;" class="form-button"
+            onclick="location.href='/edit-clientes'">
+            Atras
+        </button>
+
+        <script>
+            nextButton = document.getElementById("next")
+            nextButton.addEventListener('click', (event) => {
+
+                let name = document.getElementById("name").value.toUpperCase();
+                let telefono = document.getElementById("telefono").value;
+                let direccion = document.getElementById("direccion").value;
+                let monto = document.getElementById("monto").value;
+
+                if (name == "" || telefono == "" || direccion == "" || monto == "") {
+                    alert("Complete todos los campos");
+                } else {
+
+                    window.formData = { name, telefono, direccion, monto }
+
+                    const vpName = document.getElementById("vistaPreviaNombre")
+                    const vpTelefono = document.getElementById("vistaPreviaTelefono")
+                    const vpDireccion = document.getElementById("vistaPreviaDireccion")
+                    const vpMonto = document.getElementById("vistaPreviaMonto")
+
+                    vpName.innerHTML = name
+                    vpTelefono.innerHTML = telefono
+                    vpDireccion.innerHTML = direccion
+                    vpMonto.innerHTML = monto
+
+                    let windowElement = document.getElementById("window");
+                    windowElement.classList.toggle("visible");
+
+                }
+            })
+            function cerrarVentana() {
+                event.preventDefault()
+                var windowElement = document.getElementById("window");
+                windowElement.classList.toggle("visible");
+            }
+
+            const form = document.getElementById("product-form");
+            form.addEventListener("submit", (event) => {
+                event.preventDefault()
+                fetch("/editar-cliente-id", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(window.formData),
+                })
+                    .then((response) => {
+                        response.json();
+                    })
+                    .then((data) => {
+                        console.log("Respuesta del servidor:", data);
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    })
+
+                cerrarVentana()
+            }
+            )
+        </script>
+</body>
+
+</html>
