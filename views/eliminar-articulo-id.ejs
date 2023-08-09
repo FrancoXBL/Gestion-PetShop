@@ -1,0 +1,32 @@
+<%- include('partials/header'); %>
+<h1>ELIMINAR ARTICULO</h1>
+<p  id="idProduct"><%= article.id %></p>
+<h3>Estas seguro de eliminar <span><%= article.alimento %></span> de <span><%= article.tipo %></span> de <span><%= article.peso %></span> KG?</h3>
+<button id="sendButton">ELIMINAR</button>
+<button onclick="location.href='/edit-article'">ATRAS</button>
+<script>
+    const sendButton = document.getElementById("sendButton")
+    sendButton.addEventListener("click", (event) => {
+      event.preventDefault()
+      const idProduct = document.getElementById("idProduct")
+      console.log(idProduct.innerHTML)
+      const sendInfo =  {id: idProduct.innerHTML}
+      fetch("/delete-article-id", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(sendInfo),
+      })
+        .then((response) => {
+          response.json();
+        })
+        .then((data) => {
+          console.log("Respuesta del servidor:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        })
+    })
+</script>
+<%- include('partials/footer'); %>

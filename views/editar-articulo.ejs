@@ -49,13 +49,18 @@
           </tr>
           <% } %>
   </div>
+
+  <button style="background-color: rgba(184, 46, 46, 0.767); margin-top: 5px;" class="form-button" onclick="location.href='/'">
+    Atras
+  </button>
+  
   <script>
     function editClient(index) {
       location.href = `edit-article-id/${index}`
     }
 
     function deleteClient(index) {
-      location.href = `eliminar-articulo-id/${index}`
+      location.href = `delete-article-id/${index}`
     }
   </script>
   <%- include('partials/footer'); %>
