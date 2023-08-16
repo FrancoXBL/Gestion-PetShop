@@ -17,13 +17,13 @@
         <% for(let i=0; i < clients.length; i++) { %>
           <tr id="client-<%= i %>">
             <td>
-              <span id="cliente-<%= i %>"><%= clients[i].cliente %></span>
+              <span id="cliente-<%= i %>"><%= clients[i].name.toUpperCase() %></span>
             </td>
             <td>
               <span id="telefono-<%= i %>"><%= clients[i].telefono %></span>
             </td>
             <td>
-              <span id="direccion-<%= i %>"><%= clients[i].direccion %></span>
+              <span id="direccion-<%= i %>"><%= clients[i].direccion.toUpperCase() %></span>
             </td>
             <td>
               <span id="monto-<%= i %>"><%= clients[i].monto %></span>
@@ -36,6 +36,9 @@
         <% } %>
 
   </div>
+  <button style="background-color: rgba(184, 46, 46, 0.767); margin-top: 5px;" class="form-button" onclick="location.href='/'">
+    Atras
+  </button>
   <script>
   function editClient(index) {
     location.href=`editar-cliente-id/${index}`

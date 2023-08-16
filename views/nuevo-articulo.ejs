@@ -25,6 +25,10 @@
         <label for="price">Precio:</label>
         <input type="number" id="price" name="price" />
       </div>
+      <div class="form-group">
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" name="stock" />
+      </div>
       <button type="button" style="background-color: rgb(93, 150, 93)" class="form-button" id="next">Siguiente</button>
       <div id="window" class="window">
         <div class="vistaPrevia">
@@ -33,6 +37,7 @@
           <p>Tipo:<span id="vistaPreviaTipo"></span></p>
           <p>Peso:<span id="vistaPreviaPeso"></span></p>
           <p>Precio:<span id="vistaPreviaPrecio"></span></p>
+          <p>Stock:<span id="vistaPreviaStock"></span></p>
         </div>
         <div class="window-content">
           <button type="submit" style="background-color: rgb(76, 76, 134); margin-bottom: 5px" id="submitForm"
@@ -58,23 +63,26 @@
       let option = document.getElementById("option-tipo").value;
       let peso = document.getElementById("peso").value;
       let price = document.getElementById("price").value;
+      let stock = document.getElementById("stock").value;
       optionTipo = ["PERRO", "GATO", "FORRAJE", "ACCESORIOS", "OTROS"]
 
-      if (name == "" || price == "" || peso == "") {
+      if (name == "" || price == "" || peso == "" || stock == "") {
         alert("Complete todos los campos");
       } else {
 
-        window.formData = { name, tipo: optionTipo[option - 1], peso, price }
+        window.formData = { name, tipo: optionTipo[option - 1], peso, price, stock }
 
         const vpName = document.getElementById("vistaPreviaAlimento")
         const vpTipo = document.getElementById("vistaPreviaTipo")
         const vpPeso = document.getElementById("vistaPreviaPeso")
         const vpPrecio = document.getElementById("vistaPreviaPrecio")
+        const vpStock = document.getElementById("vistaPreviaStock")
 
         vpName.innerHTML = name
         vpTipo.innerHTML = optionTipo[option - 1]
         vpPeso.innerHTML = peso
         vpPrecio.innerHTML = price
+        vpStock.innerHTML = stock
 
         let windowElement = document.getElementById("window");
         windowElement.classList.toggle("visible");
@@ -110,6 +118,8 @@
         })
 
         cerrarVentana()
+        alert("Articulo agregado!")
+        location.href="/edit-article"
     }
     )
   </script>

@@ -13,10 +13,15 @@ router.get("/new-article", (req, res) => {
 router.post("/new-article", (req, res) => {
   const newData = req.body
   console.log(newData)
+  lista.push(newData)
+  lista.map((item, index) => {
+    item.id = index + 1
+  })
 });
 
 router.get("/edit-article", (req, res) => {
   res.render("editar-articulo", { lista });
+  console.log(lista)
 });
 
 router.get("/edit-article-id/:id", (req, res) =>{
@@ -27,14 +32,18 @@ router.get("/edit-article-id/:id", (req, res) =>{
 router.post("/edit-article-id", (req, res) =>{
   const data = req.body
   console.log("Data desde el backend", data)
+  lista.map((item, index) => {
+    if(data.id == index + 1){
+      lista[index] = data
+    }
+  })
+  console.log('Lista nueva', lista)
 })
 
 router.get("/delete-article-id/:id", (req, res) =>{
   const article = lista[req.params.id]
   res.render("eliminar-articulo-id", {article})
 })
-
-// A CORREGIRRR 
 
 router.post("/delete-article-id", (req, res) =>{
   const data = req.body
@@ -45,11 +54,6 @@ router.post("/delete-article-id", (req, res) =>{
   lista.map((item, index) => {
     item.id = index + 1
   })
-  console.log("nueva lsita", lista)
 })
-
-// A CORREGIRRR
-
-
 
 module.exports = router;

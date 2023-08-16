@@ -19,7 +19,7 @@
           <tr>
             <td>
               <span id="cliente-<%= i %>">
-                <%= lista[i].alimento %>
+                <%= lista[i].name.toUpperCase() %>
               </span>
             </td>
             <td>
@@ -29,12 +29,12 @@
             </td>
             <td>
               <span id="cliente-<%= i %>">
-                <%= lista[i].tipo %>
+                <%= lista[i].tipo.toUpperCase() %>
               </span>
             </td>
             <td>
               <span id="cliente-<%= i %>">
-                <%= lista[i].precio %>
+                <%= lista[i].price %>
               </span>
             </td>
             <td>
@@ -48,11 +48,12 @@
             </td>
           </tr>
           <% } %>
-  </div>
-
-  <button style="background-color: rgba(184, 46, 46, 0.767); margin-top: 5px;" class="form-button" onclick="location.href='/'">
-    Atras
-  </button>
+  
+        </div>
+        
+        <button style="background-color: rgba(184, 46, 46, 0.767); margin-top: 5px;" class="form-button" onclick="location.href='/'">
+          Atras
+        </button>
   
   <script>
     function editClient(index) {

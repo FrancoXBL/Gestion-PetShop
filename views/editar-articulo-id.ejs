@@ -11,12 +11,13 @@
 </head>
 
 <body>
+    <span style="display: none;" id="idEnviar"><%= article.id %></span>
     <div class="form-container">
         <h1>ACTUALIZAR DATOS</h1>
         <form id="product-form">
             <div class="form-group">
                 <label for="name">Nombre Articulo:</label>
-                <input type="text" id="name" name="name" value="<%= article.alimento %>" />
+                <input type="text" id="name" name="name" value="<%= article.name %>" />
             </div>
             <div style="display: flex; align-items: center; gap: 10px" class="form-group">
                 <label for="peso">KG:</label>
@@ -32,7 +33,7 @@
             </div>
             <div class="form-group">
                 <label for="precio">Precio:</label>
-                <input type="number" id="precio" name="precio" value="<%= article.precio %>" />
+                <input type="number" id="precio" name="precio" value="<%= article.price %>" />
             </div>
             <button type="button" style="background-color: rgb(93, 150, 93)" class="form-button"
                 id="next">Siguiente</button>
@@ -67,16 +68,17 @@
                 event.preventDefault()
 
                 let name = document.getElementById("name").value.toUpperCase();
-                let peso = document.getElementById("peso").value;
+                let peso = parseInt(document.getElementById("peso").value);
                 let tipo = document.getElementById("tipo").value;
-                let precio = document.getElementById("precio").value;
-                let stock = document.getElementById("stock").value;
+                let precio = parseInt(document.getElementById("precio").value);
+                let stock = parseInt(document.getElementById("stock").value);
 
                 if (name == "" || peso == "" || precio == "" || stock == "") {
                     alert("Complete todos los campos");
                 } else {
+                    const idEnviar = parseInt(document.getElementById("idEnviar").innerHTML)
 
-                    window.formData = { name, peso, tipo, precio, stock }
+                    window.formData = {id:idEnviar, name, peso, tipo, price:precio, stock }
 
                     const vpArticulo = document.getElementById("vistaPreviaArticulo")
                     const vpPeso = document.getElementById("vistaPreviaPeso")
@@ -84,6 +86,7 @@
                     const vpMonto = document.getElementById("vistaPreviaMonto")
                     const vpStock = document.getElementById("vistaPreviaStock")
 
+                    
                     vpArticulo.innerHTML = name
                     vpPeso.innerHTML = peso
                     vpTipo.innerHTML = tipo
@@ -120,8 +123,9 @@
                     .catch((error) => {
                         console.error("Error:", error);
                     })
-
-                cerrarVentana()
+                
+                alert("Articulo editado")
+                location.href="/edit-article"
             }
             )
         </script>
