@@ -24,31 +24,40 @@ router.get("/edit-clientes", (req, res) => {
 });
 
 router.get("/editar-cliente-id/:id", (req, res) => {
-  const lista = obtenerClientes();
-  const client = lista[req.params.id];
-  console.log(client);
-  res.render("editar-cliente-id", { client });
+  console.log(clients)
+  const id = parseInt(req.params.id) + 1
+  clients.map((client) => {
+    if(client.id == id) {
+      console.log("Cliente a editar", client)
+      res.render("editar-cliente-id", { client });
+    }
+  })
 });
 
 router.get("/eliminar-cliente-id/:id", (req, res) => {
   const client = clients[req.params.id];
   console.log("cliente a eliminar", client);
   res.render("eliminar-cliente-id", { client });
+  console.log(clients)
 });
 
 router.post("/delete-client-id", (req, res) => {
-  console.log(clients)
   const data = req.body
   const index = parseInt(data.id)
   const elementoAEliminar = clients[index - 1]
-  console.log("Data desde el backend", elementoAEliminar)
   clients.splice(index-1, 1)
   clients.map((item, index) => {
     item.id = index + 1
   })
+  console.log(clients)
 })
 router.post("/editar-cliente-id", (req, res) => {
   const data = req.body;
+  clients.map((item, index) => {
+    if(data.id == index + 1){
+      clients[index] = data
+    }
+  })
 });
 
 module.exports = router;

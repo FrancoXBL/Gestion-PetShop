@@ -11,12 +11,13 @@
 </head>
 
 <body>
+    <span style="display: none;" id="idEnviar"><%= client.id %></span>
     <div class="form-container">
         <h1>ACTUALIZAR DATOS</h1>
         <form id="product-form">
             <div class="form-group">
                 <label for="name">Nombre Cliente:</label>
-                <input type="text" id="name" name="name" value="<%= client.cliente %>" />
+                <input type="text" id="name" name="name" value="<%= client.name %>" />
             </div>
             <div style="display: flex; align-items: center; gap: 10px" class="form-group">
                 <label for="telefono">Telefono:</label>
@@ -59,7 +60,7 @@
         <script>
             nextButton = document.getElementById("next")
             nextButton.addEventListener('click', (event) => {
-
+                let id = document.getElementById("idEnviar").innerHTML
                 let name = document.getElementById("name").value.toUpperCase();
                 let telefono = document.getElementById("telefono").value;
                 let direccion = document.getElementById("direccion").value;
@@ -69,12 +70,12 @@
                     alert("Complete todos los campos");
                 } else {
 
-                    window.formData = { name, telefono, direccion, monto }
+                    window.formData = {id: parseInt(id), name, telefono, direccion, monto: parseInt(monto) }
 
                     const vpName = document.getElementById("vistaPreviaNombre")
                     const vpTelefono = document.getElementById("vistaPreviaTelefono")
                     const vpDireccion = document.getElementById("vistaPreviaDireccion")
-                    const vpMonto = document.getElementById("vistaPreviaMonto")
+                    const vpMonto = parseInt(document.getElementById("vistaPreviaMonto"))
 
                     vpName.innerHTML = name
                     vpTelefono.innerHTML = telefono
@@ -113,6 +114,8 @@
                     })
 
                 cerrarVentana()
+                alert("Cliente actualizado!")
+                location.href="/edit-clientes"
             }
             )
         </script>

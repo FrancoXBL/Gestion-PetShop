@@ -1,0 +1,53 @@
+<%- include('partials/header'); %>
+<header>
+    <h1>CAJA DIARIA</h1>
+  </header>
+  <div class="list-container">
+    <table class="button-table">
+      <thead>
+        <tr>
+          <th>NOMBRE</th>
+          <th>KG</th>
+          <th>TIPO</th>
+          <th>MONTO</th>
+          <th>PAGO EN</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let i=0; i < ventasDiarias.length; i++) { %>
+          <tr>
+            <td>
+              <span id="cliente-<%= i %>">
+                <%= ventasDiarias[i].name.toUpperCase() %>
+              </span>
+            </td>
+            <td>
+              <span id="cliente-<%= i %>">
+                <%= ventasDiarias[i].peso %>
+              </span>
+            </td>
+            <td>
+              <span id="cliente-<%= i %>">
+                <%= ventasDiarias[i].tipos %>
+              </span>
+            </td>
+            <td>
+              <span id="cliente-<%= i %>">
+                <%= ventasDiarias[i].price %>
+              </span>
+            </td>
+            <td>
+              <span id="cliente-<%= i %>">
+                <%= ventasDiarias[i].option %>
+              </span>
+            </td>
+          </tr>
+          <% } %>
+  
+        </div>
+        
+        <button style="background-color: rgba(184, 46, 46, 0.767); margin-top: 5px;" class="form-button" onclick="location.href='/'">
+          Atras
+        </button>
+  
+<%- include('partials/footer'); %>
