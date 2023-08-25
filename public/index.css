@@ -20,6 +20,8 @@ body {
 /* Estilos de encabezado */
 
 header {
+  max-width: 1000px;
+  margin: auto;
   background-color: #333;
   color: #fff;
   padding: 20px;
@@ -236,4 +238,50 @@ select {
   border-radius: 4px;
   border: none;
   cursor: pointer;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+.containerTotal {
+  max-width: 1000px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  position: sticky;
+  top: 70px;
+  width: 100%;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.date {
+  font-size: 18px;
+}
+
+.totals {
+  display: flex;
+  gap: 20px;
+}
+
+.total-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.total-box {
+  text-align: center;
+  font-weight: bold;
+  color: green;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  width: 150px;
 }

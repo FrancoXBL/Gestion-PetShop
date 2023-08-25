@@ -1,7 +1,34 @@
 <%- include('partials/header'); %>
-<header>
+  <header>
     <h1>CAJA DIARIA</h1>
   </header>
+  <div class="containerTotal">
+    <div class="date">
+      <span id="current-date"></span>
+    </div>
+    <div class="totals">
+      <div class="total-item">
+        <span>Total Efectivo:</span>
+        <input readonly class="total-box" id="total-efectivo" value="0"/>
+      </div>
+      <div class="total-item">
+        <span>Total Tarjetas débito:</span>
+        <input readonly class="total-box" id="total-debito" value="0"/>
+      </div>
+      <div class="total-item">
+        <span>Total Tarjetas crédito:</span>
+        <input readonly class="total-box" id="total-credito" value="0"/>
+      </div>
+      <div class="total-item">
+        <span>Total Transferencias:</span>
+        <input readonly class="total-box" id="total-transferencia" value="0"/>
+      </div>
+      <div class="total-item">
+        <span>Total Global:</span>
+        <input readonly class="total-box" id="total-global" value="0" />
+      </div>
+    </div>
+  </div>
   <div class="list-container">
     <table class="button-table">
       <thead>
@@ -32,22 +59,96 @@
               </span>
             </td>
             <td>
-              <span id="cliente-<%= i %>">
+              <span class="precios" id="cliente-<%= i %>">
                 <%= ventasDiarias[i].price %>
               </span>
             </td>
             <td>
-              <span id="cliente-<%= i %>">
+              <span class="opcion" id="opcion-<%= i %>">
                 <%= ventasDiarias[i].option %>
               </span>
             </td>
           </tr>
           <% } %>
-  
-        </div>
-        
-        <button style="background-color: rgba(184, 46, 46, 0.767); margin-top: 5px;" class="form-button" onclick="location.href='/'">
-          Atras
-        </button>
-  
-<%- include('partials/footer'); %>
+
+  </div>
+    <button style="background-color: rgba(184, 46, 46, 0.767); margin-top: 5px;" class="form-button"
+      onclick="location.href='/'">
+      Atras
+    </button>
+    <button style="background-color: rgb(16, 163, 16); margin: 5px;" class="form-button"
+      onclick="location.href='/nueva-venta'">
+      Nueva Venta
+    </button>
+
+
+  <script>
+    
+    const tiposVentas = document.querySelectorAll(".opcion")
+    const tiposVentasNew = []
+    tiposVentas.forEach((i) =>{
+      tiposVentasNew.push(i.innerText)
+    })
+
+    const ventas = document.querySelectorAll(".precios")
+    const ventasNew = []
+
+    ventas.forEach((i) => {
+      ventasNew.push(i.innerText)
+    })
+
+    const formatArray = []
+    
+    ventasNew.map((item, index) => {
+      let obj = {monto:ventasNew[index], tipo:tiposVentasNew[index]}
+      formatArray.push(obj)
+    })
+
+    console.log(formatArray)
+
+    function pintarPrecios(arr){
+      let totalEfectivo = 0
+      let totalDebito = 0
+      let totalCredito = 0
+      let totalTransferencia = 0
+       
+      arr.map((i) => {
+        if(i.tipo == "EFECTIVO"){
+          totalEfectivo += parseInt(i.monto)
+        }
+        if(i.tipo == "DEBITO"){
+          totalDebito += parseInt(i.monto)
+        }
+        if(i.tipo == "CREDITO"){
+          totalCredito += parseInt(i.monto)
+        }
+        if(i.tipo == "TRANSFERENCIA"){
+          totalTransferencia += parseInt(i.monto)
+        }
+      })
+
+      const totalGlobal = totalEfectivo + totalDebito + totalCredito + totalTransferencia
+
+      document.getElementById("total-efectivo").value = `$ ${totalEfectivo}`
+      document.getElementById("total-debito").value = `$ ${totalDebito}`
+      document.getElementById("total-credito").value = `$ ${totalCredito}`
+      document.getElementById("total-transferencia").value = `$ ${totalTransferencia}`
+      document.getElementById("total-global").value = `$ ${totalGlobal}`
+    }
+
+    pintarPrecios(formatArray)
+
+
+    const currentDate = new Date();
+
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); 
+    const year = String(currentDate.getFullYear()); 
+
+    const formattedDate = `${day} / ${month} / ${year}`;
+
+    document.getElementById('current-date').textContent = formattedDate;
+
+  </script>
+
+  <%- include('partials/footer'); %>
