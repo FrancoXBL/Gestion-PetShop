@@ -75,7 +75,7 @@
   <button
     style="background-color: rgba(184, 46, 46, 0.767)"
     class="form-button"
-    onclick="location.href='/'"
+    onclick="location.href='/caja-diaria'"
   >
     Atras
   </button>
@@ -233,7 +233,7 @@
         });
 
       textPrint = `<p style="font-size: 30px;
-  text-align: center;">TIKET DE VENTA</p><hr>`
+  text-align: center;">TICKET DE VENTA</p><hr>`
 
       forPrint.map((data, index) => {
         
@@ -242,6 +242,8 @@
       })
 
       textPrint += `<hr><p style="font-size: 20px;">Total: $${textTotal} - ${option}</p>`
+
+      textPrint += `<hr>No valido como factura <hr> <h3>FORRAJERIA EL CARDENAL, TELEFONO: 3434 68-5565`
 
       let windowElement = document.getElementById("window");
       windowElement.classList.toggle("visible");

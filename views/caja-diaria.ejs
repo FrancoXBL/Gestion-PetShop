@@ -80,9 +80,13 @@
       onclick="location.href='/nueva-venta'">
       Nueva Venta
     </button>
+    <button style="background-color: rgb(37, 37, 134); margin: 5px;" class="form-button" id="printButtom">
+      Imprimir ventas diarias
+    </button>
 
 
   <script>
+
     
     const tiposVentas = document.querySelectorAll(".opcion")
     const tiposVentasNew = []
@@ -138,6 +142,24 @@
 
     pintarPrecios(formatArray)
 
+    const printButtom = document.getElementById("printButtom")
+    printButtom.addEventListener("click", (event) => {
+      event.preventDefault();
+      const backup = document.body.innerHTML;
+      
+      const totalEfectivo = document.getElementById("total-efectivo").value
+      const totalDebito = document.getElementById("total-debito").value 
+      const totalCredito = document.getElementById("total-credito").value 
+      const totalTransferencia = document.getElementById("total-transferencia").value 
+      const totalGlobal = document.getElementById("total-global").value 
+      const currentDate = document.getElementById("current-date").innerHTML
+
+      document.body.innerHTML = `<h1>VENTAS DRIARIAS </h1> \n <hr> \n FECHA: ${currentDate} \n <p>TOTAL EFECTIVO: ${totalEfectivo} \n <p>TOTAL DEBITO: ${totalDebito} \n <p>TOTAL CREDITO: ${totalCredito} \n <p>TOTAL TRANSFERENCIA: ${totalTransferencia}</p> \n <p>TOTAL GLOBAL: ${totalGlobal} <hr>`
+      window.print();
+      document.body.innerHTML = backup;
+
+      location.reload()
+    })
 
     const currentDate = new Date();
 
