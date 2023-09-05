@@ -1,11 +1,8 @@
 const { Router } = require("express");
-const { obtenerClientes } = require("../repositorio.articulos");
+const { obtenerClientes, actualizarClientes } = require("../repositorio.articulos");
 const clients = obtenerClientes();
 const router = Router();
 
-router.get("/clientes", (req, res) => {
-  res.render("clientes");
-});
 router.get("/new-clientes", (req, res) => {
   res.render("nuevo-cliente");
 });
@@ -16,7 +13,7 @@ router.post("/new-clientes", (req, res) => {
   clients.map((item, index) =>{
     item.id = index + 1
   })
-  console.log("Nueva lista", clients)
+  actualizarClientes(clients)
 });
 
 router.get("/edit-clientes", (req, res) => {
@@ -44,12 +41,11 @@ router.get("/eliminar-cliente-id/:id", (req, res) => {
 router.post("/delete-client-id", (req, res) => {
   const data = req.body
   const index = parseInt(data.id)
-  const elementoAEliminar = clients[index - 1]
   clients.splice(index-1, 1)
   clients.map((item, index) => {
     item.id = index + 1
   })
-  console.log(clients)
+  actualizarClientes(clients)
 })
 router.post("/editar-cliente-id", (req, res) => {
   const data = req.body;
@@ -58,6 +54,7 @@ router.post("/editar-cliente-id", (req, res) => {
       clients[index] = data
     }
   })
+  actualizarClientes(clients)
 });
 
 module.exports = router;

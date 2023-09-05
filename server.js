@@ -12,12 +12,10 @@ app.use(express.json());
 
 const HomeRoute = require("./routes/home");
 const ClientRoute = require("./routes/clients");
-const VentaRoute = require("./routes/ventas");
 const ArticulosRoute = require("./routes/articulos");
 
 app.use(HomeRoute);
 app.use(ClientRoute);
-app.use(VentaRoute);
 app.use(ArticulosRoute);
 
 // ROUTESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
