@@ -10,6 +10,7 @@
           <th>Telefono</th>
           <th>Direccion</th>
           <th>Monto</th>
+          <th>Ultima Actualizacion</th>
           <th>Editar o Eliminar</th>
         </tr>
       </thead>
@@ -27,6 +28,9 @@
             </td>
             <td>
               <span id="monto-<%= i %>"><%= clients[i].monto %></span>
+            </td>
+            <td>
+              <span id="monto-<%= i %>"><%= clients[i].fechaActualizacion %></span>
             </td>
             <td>
               <a class="edit-button" onclick="editClient(<%= i %>)">Editar</a>

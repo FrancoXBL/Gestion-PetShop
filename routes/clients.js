@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { obtenerClientes, actualizarClientes } = require("../repositorio.articulos");
+const { obtenerClientes, actualizarClientes, fechaDeActualizacion } = require("../repositorio.articulos");
 const clients = obtenerClientes();
 const router = Router();
 
@@ -35,7 +35,6 @@ router.get("/eliminar-cliente-id/:id", (req, res) => {
   const client = clients[req.params.id];
   console.log("cliente a eliminar", client);
   res.render("eliminar-cliente-id", { client });
-  console.log(clients)
 });
 
 router.post("/delete-client-id", (req, res) => {
@@ -49,6 +48,7 @@ router.post("/delete-client-id", (req, res) => {
 })
 router.post("/editar-cliente-id", (req, res) => {
   const data = req.body;
+  fechaDeActualizacion(data)
   clients.map((item, index) => {
     if(data.id == index + 1){
       clients[index] = data

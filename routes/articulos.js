@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { obtenerLista, actualizarLista, verificarYCrearArchivoExcel, actualizarCajaDiaria, obtenerCajaDiaria } = require("../repositorio.articulos");
+const { obtenerLista, actualizarLista, verificarYCrearArchivoExcel, actualizarCajaDiaria, obtenerCajaDiaria, fechaDeActualizacion } = require("../repositorio.articulos");
 const lista = obtenerLista()
 const ruta = verificarYCrearArchivoExcel()
 let ventasDiarias = obtenerCajaDiaria(ruta)
@@ -56,6 +56,7 @@ router.get("/edit-article-id/:id", (req, res) =>{
 
 router.post("/edit-article-id", (req, res) =>{
   const data = req.body
+  fechaDeActualizacion(data)
   lista.map((item, index) => {
     if(data.id == index + 1){
       lista[index] = data

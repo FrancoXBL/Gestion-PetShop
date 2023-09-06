@@ -11,6 +11,7 @@
           <th>Tipo</th>
           <th>Precio</th>
           <th>Stock</th>
+          <th>Ultima Actualizacion</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -40,6 +41,11 @@
             <td>
               <span id="cliente-<%= i %>">
                 <%= lista[i].stock %>
+              </span>
+            </td>
+            <td>
+              <span id="cliente-<%= i %>">
+                <%= lista[i].fechaActualizacion %>
               </span>
             </td>
             <td>

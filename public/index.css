@@ -20,7 +20,7 @@ body {
 /* Estilos de encabezado */
 
 header {
-  max-width: 1000px;
+  max-width: 80vw;
   margin: auto;
   background-color: #333;
   color: #fff;
@@ -220,7 +220,7 @@ select {
 }
 
 .list-container {
-  max-width: 1000px;
+  max-width: 80vw;
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
@@ -247,12 +247,27 @@ body {
 }
 
 .containerTotal {
-  max-width: 1000px;
+  max-width: 80vw;
+  height: 50px;
   margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.boxButtomsCajaDiaria {
+  max-width: 80vw;
+  height: 50px;
+  margin: auto;
+  display: flex;
+  justify-content: start;
+  background-color: grey;
   color: #fff;
   padding: 10px 20px;
   position: sticky;

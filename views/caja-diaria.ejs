@@ -29,6 +29,19 @@
       </div>
     </div>
   </div>
+  <div class="boxButtomsCajaDiaria">
+    <button style="background-color: rgba(184, 46, 46, 0.767); margin-top: 5px;" class="form-button"
+      onclick="location.href='/'">
+      Atras
+    </button>
+    <button style="background-color: rgb(16, 163, 16); margin: 5px;" class="form-button"
+      onclick="location.href='/nueva-venta'">
+      Nueva Venta
+    </button>
+    <button style="background-color: rgb(37, 37, 134); margin: 5px;" class="form-button" id="printButtom">
+      Imprimir ventas diarias
+    </button>
+  </div>
   <div class="list-container">
     <table class="button-table">
       <thead>
@@ -41,7 +54,7 @@
         </tr>
       </thead>
       <tbody>
-        <% for(let i=0; i < ventasDiarias.length; i++) { %>
+        <% for(let i=ventasDiarias.length - 1; i > 0; i--) { %>
           <tr>
             <td>
               <span id="cliente-<%= i %>">
@@ -72,17 +85,7 @@
           <% } %>
 
   </div>
-    <button style="background-color: rgba(184, 46, 46, 0.767); margin-top: 5px;" class="form-button"
-      onclick="location.href='/'">
-      Atras
-    </button>
-    <button style="background-color: rgb(16, 163, 16); margin: 5px;" class="form-button"
-      onclick="location.href='/nueva-venta'">
-      Nueva Venta
-    </button>
-    <button style="background-color: rgb(37, 37, 134); margin: 5px;" class="form-button" id="printButtom">
-      Imprimir ventas diarias
-    </button>
+
 
 
   <script>
@@ -154,7 +157,7 @@
       const totalGlobal = document.getElementById("total-global").value 
       const currentDate = document.getElementById("current-date").innerHTML
 
-      document.body.innerHTML = `<h1>VENTAS DRIARIAS </h1> \n <hr> \n FECHA: ${currentDate} \n <p>TOTAL EFECTIVO: ${totalEfectivo} \n <p>TOTAL DEBITO: ${totalDebito} \n <p>TOTAL CREDITO: ${totalCredito} \n <p>TOTAL TRANSFERENCIA: ${totalTransferencia}</p> \n <p>TOTAL GLOBAL: ${totalGlobal} <hr>`
+      document.body.innerHTML = `<h1>VENTAS DIARIAS </h1> \n <hr> \n FECHA: ${currentDate} \n <p>TOTAL EFECTIVO: ${totalEfectivo} \n <p>TOTAL DEBITO: ${totalDebito} \n <p>TOTAL CREDITO: ${totalCredito} \n <p>TOTAL TRANSFERENCIA: ${totalTransferencia}</p> \n <p>TOTAL GLOBAL: ${totalGlobal} <hr>`
       window.print();
       document.body.innerHTML = backup;
 

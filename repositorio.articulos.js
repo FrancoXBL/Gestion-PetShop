@@ -109,10 +109,16 @@ function verificarYCrearArchivoExcel() {
   return rutaArchivo
 }
 
+function fechaDeActualizacion(data){
+  const fechaActual = new Date();
+  data.fechaActualizacion = fechaActual.toISOString().slice(0, 10)
+}
+
 
 
 
 module.exports = {
+  fechaDeActualizacion,
   obtenerCajaDiaria,
   actualizarCajaDiaria,
   verificarYCrearArchivoExcel,

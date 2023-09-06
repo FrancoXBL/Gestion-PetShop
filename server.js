@@ -1,8 +1,17 @@
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
-
 const app = express();
+
+const { exec } = require('child_process');
+const url = 'http://localhost:3000/';
+exec(`start ${url}`, (error, stdout, stderr) => {
+  if (error) {
+    console.error(`Error al abrir el navegador: ${error.message}`);
+    return;
+  }
+  console.log(`Se abrió el navegador en ${url}`);
+});
 
 // ROUTESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 app.use("/public", express.static("./public"));
