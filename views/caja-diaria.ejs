@@ -1,7 +1,9 @@
 <%- include('partials/header'); %>
-  <header>
-    <h1>CAJA DIARIA</h1>
-  </header>
+<header>
+  <h1>CAJA DIARIA</h1>
+</header>
+<div class="blockeventas">
+
   <div class="containerTotal">
     <div class="date">
       <span id="current-date"></span>
@@ -30,64 +32,97 @@
     </div>
   </div>
   <div class="boxButtomsCajaDiaria">
-    <button style="background-color: rgba(184, 46, 46, 0.767); margin-top: 5px;" class="form-button"
-      onclick="location.href='/'">
+    <button style="background-color: rgba(184, 46, 46, 0.767); margin-top: 5px;" class="form-button" onclick="location.href='/'">
       Atras
     </button>
-    <button style="background-color: rgb(16, 163, 16); margin: 5px;" class="form-button"
-      onclick="location.href='/nueva-venta'">
+    <button style="background-color: rgb(16, 163, 16); margin: 5px;" class="form-button" onclick="location.href='/nueva-venta'">
       Nueva Venta
     </button>
     <button style="background-color: rgb(37, 37, 134); margin: 5px;" class="form-button" id="printButtom">
       Imprimir ventas diarias
     </button>
   </div>
-  <div class="list-container">
-    <table class="button-table">
-      <thead>
-        <tr>
-          <th>NOMBRE</th>
-          <th>KG</th>
-          <th>TIPO</th>
-          <th>MONTO</th>
-          <th>PAGO EN</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(let i=ventasDiarias.length - 1; i > 0; i--) { %>
+  <div style="display: flex;" class="blockventas">
+    <div style="max-width: 40%;" class="list-container">
+      <h1>POR PRODUCTOS</h1>
+      <table class="button-table">
+        <thead>
           <tr>
-            <td>
-              <span id="cliente-<%= i %>">
-                <%= ventasDiarias[i].name.toUpperCase() %>
-              </span>
-            </td>
-            <td>
-              <span id="cliente-<%= i %>">
-                <%= ventasDiarias[i].peso %>
-              </span>
-            </td>
-            <td>
-              <span id="cliente-<%= i %>">
-                <%= ventasDiarias[i].tipos %>
-              </span>
-            </td>
-            <td>
-              <span class="precios" id="cliente-<%= i %>">
-                <%= ventasDiarias[i].price %>
-              </span>
-            </td>
-            <td>
-              <span class="opcion" id="opcion-<%= i %>">
-                <%= ventasDiarias[i].option %>
-              </span>
-            </td>
+            <th>NOMBRE</th>
+            <th>KG</th>
+            <th>TIPO</th>
+            <th>MONTO</th>
+            <th>PAGO EN</th>
           </tr>
+        </thead>
+        <tbody>
+          <% for(let i=ventasDiarias.length - 1; i >= 0; i--) { %>
+            <tr>
+              <td>
+                <span id="cliente-<%= i %>">
+                  <%= ventasDiarias[i].name.toUpperCase() %>
+                </span>
+              </td>
+              <td>
+                <span id="cliente-<%= i %>">
+                  <%= ventasDiarias[i].peso %>
+                </span>
+              </td>
+              <td>
+                <span id="cliente-<%= i %>">
+                  <%= ventasDiarias[i].tipos %>
+                </span>
+                <span id="cliente-<%= i %>">
+                  <%= ventasDiarias[i].tiposEdad %>
+                </span>
+                <span id="cliente-<%= i %>">
+                  <%= ventasDiarias[i].tiposMordida %>
+                </span>
+              </td>
+              <td>
+                <span class="precios" id="cliente-<%= i %>">
+                  <%= ventasDiarias[i].price %>
+                </span>
+              </td>
+              <td>
+                <span class="opcion" id="opcion-<%= i %>">
+                  <%= ventasDiarias[i].option %>
+                </span>
+              </td>
+            </tr>
           <% } %>
-
+        </tbody>
+      </table>
+    </div>
+    <div style="max-width: 30%;" class="list-container">
+      <h1>POR TOTALES</h1>
+      <table class="button-table">
+        <thead>
+          <tr>
+            <th>PAGO EN</th>
+            <th>MONTO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let i=sendList.length - 1; i >= 0; i--) { %>
+            <tr>
+              <td>
+                <span id="cliente-<%= i %>">
+                  <%= sendList[i].tipo %>
+                </span>
+              </td>
+              <td>
+                <span id="cliente-<%= i %>">
+                  <%= sendList[i].totalVenta %>
+                </span>
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
   </div>
-
-
-
+  </div>
   <script>
 
     

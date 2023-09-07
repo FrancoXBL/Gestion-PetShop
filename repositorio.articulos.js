@@ -109,6 +109,28 @@ function verificarYCrearArchivoExcel() {
   return rutaArchivo
 }
 
+function verificarYCrearArchivoExcelTotales() {
+  const carpetaCajasDiarias = 'cajas-diarias';
+  const fechaActual = new Date();
+  const fechaFormato = fechaActual.toISOString().slice(0, 10)
+
+  const nombreArchivo = `totales-${fechaFormato}.xlsx`;
+  const rutaArchivo = path.join(__dirname, carpetaCajasDiarias, nombreArchivo);
+
+
+  if (!fs.existsSync(rutaArchivo)) {
+
+    const workbook = XLSX.utils.book_new();
+    const hoja = XLSX.utils.aoa_to_sheet([['A']]);
+
+    XLSX.utils.book_append_sheet(workbook, hoja, 'Hoja1')
+
+    XLSX.writeFile(workbook, rutaArchivo);
+    console.log(`Se ha creado el archivo "${nombreArchivo}".`);
+  }
+  return rutaArchivo
+}
+
 function fechaDeActualizacion(data){
   const fechaActual = new Date();
   data.fechaActualizacion = fechaActual.toISOString().slice(0, 10)
@@ -118,6 +140,7 @@ function fechaDeActualizacion(data){
 
 
 module.exports = {
+  verificarYCrearArchivoExcelTotales,
   fechaDeActualizacion,
   obtenerCajaDiaria,
   actualizarCajaDiaria,

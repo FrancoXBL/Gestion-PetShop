@@ -1,8 +1,12 @@
 const router = require("express").Router();
-const { obtenerLista, actualizarLista, verificarYCrearArchivoExcel, actualizarCajaDiaria, obtenerCajaDiaria, fechaDeActualizacion } = require("../repositorio.articulos");
+const { obtenerLista, actualizarLista, verificarYCrearArchivoExcel, actualizarCajaDiaria, obtenerCajaDiaria, fechaDeActualizacion, verificarYCrearArchivoExcelTotales } = require("../repositorio.articulos");
 const lista = obtenerLista()
 const ruta = verificarYCrearArchivoExcel()
+const rutaTotales = verificarYCrearArchivoExcelTotales()
 let ventasDiarias = obtenerCajaDiaria(ruta)
+let totalVenta = 0
+let sendList = obtenerCajaDiaria(rutaTotales)
+
 
 router.get('/nueva-venta', (req, res) =>{
   const newList = [...lista]
@@ -15,15 +19,27 @@ router.get('/nueva-venta', (req, res) =>{
     }
     return 0
   })
-  console.log(lista)
   res.render('ventas', { newList })
 })
 router.get('/caja-diaria', (req, res) =>{
-  res.render('caja-diaria', {ventasDiarias})
+  res.render('caja-diaria', {ventasDiarias, sendList})
 })
 router.post('/nueva-venta', (req, res) =>{
   const data = req.body
   const tipo = data.slice(-1)
+  const listaTotal = [...data]
+  listaTotal.pop()
+  listaTotal.map((item) => {
+    console.log(item.price)
+    totalVenta = totalVenta + parseInt(item.price)
+  })
+  
+  sendList.push({totalVenta:totalVenta, tipo:tipo[0].option})
+  totalVenta = 0
+  console.log(sendList)
+
+  actualizarCajaDiaria(sendList, rutaTotales)
+
   data.map((item) => {
     let senditem = {...item, ...tipo[0]}
     ventasDiarias.push(senditem)
@@ -33,7 +49,7 @@ router.post('/nueva-venta', (req, res) =>{
 
     data.pop()
     data.map((itemData) => {
-      if(itemData.name == itemLista.name && itemData.tipos == itemLista.tipo && itemData.peso == itemLista.peso){
+      if(itemData.name == itemLista.name && itemData.tipos == itemLista.tipo && itemData.peso == itemLista.peso && itemData.tipoMordida == itemLista.tipoMordida && itemLista.tipoEdad == itemData.tipoEdad){
         lista[index].stock -= 1
       }
     })

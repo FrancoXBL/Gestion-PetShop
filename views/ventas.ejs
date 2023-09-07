@@ -24,8 +24,21 @@
           <option value="5">Accesorios</option>
           <option value="6">Otros</option>
         </select>
+        <label for="option-edad">Edad:</label>
+        <select id="option-edad" name="option-edad">
+          <option value="1">Adulto</option>
+          <option value="2">Cachorro</option>
+          <option value="3">Senior</option>
+        </select>
+        <label for="option-mordida">Mordida:</label>
+        <select id="option-mordida" name="option-mordida">
+          <option value="1">-</option>
+          <option value="2">Grande</option>
+          <option value="3">Mediana</option>
+          <option value="4">Pequeña</option>
+        </select>
         <label for="price">KG</label>
-        <input type="number" id="peso" name="peso" />
+        <input type="number" id="peso" name="peso" value="0" />
       </div>
       <div class="form-group">
         <label for="price">Precio:</label>
@@ -83,7 +96,7 @@
       onclick="location.href='/caja-diaria'"
     >
       Ir a Caja Diaria
-    </bunewList
+    </button>
     <button
       style="background-color: rgba(190, 134, 134, 0.767)"
       class="form-button"
@@ -203,12 +216,17 @@
     let name = document.getElementById("name").value
     let price = document.getElementById("price").value;
     let optionTipo = document.getElementById("option-tipo").value;
+    let optionEdad = document.getElementById("option-edad").value;
+    let optionMordida = document.getElementById("option-mordida").value;
     let peso = document.getElementById("peso").value;
 
     if (name == "" || price == "" || peso == "") {
       alert("Complete todos los campos");
     } else {
+
       const tipos = ["SUELTO", "PERRO", "GATO", "FORRAJE", "ACCESORIOS", "OTROS"];
+      const tiposEdad = ["ADULTO", "CACHORRO", "SENIOR"];
+      const tiposMordida = ["-", "GRANDE", "MEDIANA","PEQUENIA"];
 
       const sumarTextoButton = document.getElementById("sumarTextoButton");
 
@@ -216,6 +234,8 @@
         name: name.toUpperCase(),
         price,
         tipos: tipos[optionTipo - 1],
+        tiposEdad: tiposEdad[optionEdad - 1],
+        tiposMordida: tiposMordida[optionMordida - 1],
         peso,
       });
       
@@ -263,7 +283,7 @@
 
       const $totalLista = document.getElementById("total-lista");
       removerItems($totalLista);
-
+      console.log(formData)
       fetch("/nueva-venta", {
         method: "POST",
         headers: {

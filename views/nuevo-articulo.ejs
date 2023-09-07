@@ -18,6 +18,19 @@
           <option value="4">Accesorios</option>
           <option value="5">Otros</option>
         </select>
+        <label for="option">Edad:</label>
+        <select id="option-edad" name="option-tipo">
+          <option value="1">Adulto</option>
+          <option value="2">Cachorro</option>
+          <option value="3">Senior</option>
+        </select>
+        <label for="option">Mordida:</label>
+        <select id="option-mordida" name="option-tipo">
+          <option value="1">-</option>
+          <option value="2">Grande</option>
+          <option value="3">Mediana</option>
+          <option value="4">Pequeña</option>
+        </select>
         <label for="price">KG</label>
         <input type="number" id="peso" name="peso" />
       </div>
@@ -61,16 +74,20 @@
 
       let name = document.getElementById("name").value.toUpperCase();
       let option = document.getElementById("option-tipo").value;
+      let valorEdad = document.getElementById("option-edad").value;
+      let valorMordida = document.getElementById("option-mordida").value;
       let peso = document.getElementById("peso").value;
       let price = document.getElementById("price").value;
       let stock = document.getElementById("stock").value;
       optionTipo = ["PERRO", "GATO", "FORRAJE", "ACCESORIOS", "OTROS"]
+      optionEdad = ["ADULTO", "CACHORRO", "SENIOR"]
+      optionMordida = ["-", "GRANDE", "MEDIANA", "PEQUENIA"]
 
       if (name == "" || price == "" || peso == "" || stock == "") {
         alert("Complete todos los campos");
       } else {
 
-        window.formData = { name, tipo: optionTipo[option - 1], peso, price, stock }
+        window.formData = { name, tipo: optionTipo[option - 1], tipoEdad:optionEdad[valorEdad - 1], tipoMordida:optionMordida[valorMordida - 1], peso, price, stock }
 
         const vpName = document.getElementById("vistaPreviaAlimento")
         const vpTipo = document.getElementById("vistaPreviaTipo")
