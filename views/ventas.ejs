@@ -2,85 +2,132 @@
 <header class="header-content">
   <h1 class="header-title">NUEVA VENTA</h1>
 </header>
-<div class="form-container">
-  <h1>Formulario de Venta</h1>
-  <form id="product-form">
-    <div class="form-group">
-      <label for="name">Ingrese nombre Producto:</label>
-      <input type="text" id="name" name="name" placeholder="Biopet" />
-    </div>
-    <div
-      style="display: flex; align-items: center; gap: 10px"
-      class="form-group"
-    >
-      <label for="option">Tipo:</label>
-      <select id="option-tipo" name="option-tipo">
-        <option value="1">Perro</option>
-        <option value="2">Gato</option>
-        <option value="3">Forraje</option>
-        <option value="4">Accesorios</option>
-        <option value="5">Otros</option>
-      </select>
-      <label for="price">KG</label>
-      <input type="number" id="peso" name="peso" />
-    </div>
-    <div class="form-group">
-      <label for="price">Precio:</label>
-      <input type="number" id="price" name="price" />
-    </div>
-    <button
-      style="background-color: rgb(93, 150, 93)"
-      id="sumarTextoButton"
-      class="form-button"
-    >
-      Sumar
-    </button>
-    <div id="ticket-container">
-      <h3>TIKET VENTA</h3>
-      <div id="total-lista"></div>
-      <p>Total: <textarea id="total-text" rows="1" readonly>0</textarea></p>
-    </div>
-    <div class="form-group">
+<div class="blokeventas">
+
+  <div class="form-container">
+    <h1>Formulario de Venta</h1>
+    <form id="product-form">
       <div class="form-group">
-        <label for="option">Metodo de pago:</label>
-        <select id="option" name="option" required>
-          <option value="1">Efectivo</option>
-          <option value="2">Debito</option>
-          <option value="3">Credito</option>
-          <option value="4">Transferencia</option>
-        </select>
+        <label for="name">Ingrese nombre Producto:</label>
+        <input type="text" id="name" name="name" placeholder="Biopet" />
       </div>
-    </div>
-    <div class="space-between">
+      <div
+        style="display: flex; align-items: center; gap: 10px"
+        class="form-group"
+      >
+        <label for="option">Tipo:</label>
+        <select id="option-tipo" name="option-tipo">
+          <option value="1">Suelto</option>
+          <option value="2">Perro</option>
+          <option value="3">Gato</option>
+          <option value="4">Forraje</option>
+          <option value="5">Accesorios</option>
+          <option value="6">Otros</option>
+        </select>
+        <label for="price">KG</label>
+        <input type="number" id="peso" name="peso" />
+      </div>
+      <div class="form-group">
+        <label for="price">Precio:</label>
+        <input type="number" id="price" name="price" />
+      </div>
       <button
-        type="submit"
-        style="background-color: rgb(76, 76, 134); margin-bottom: 5px"
+        style="background-color: rgb(93, 150, 93)"
+        id="sumarTextoButton"
         class="form-button"
       >
-        Completar venta!
+        Sumar
       </button>
+      <div id="ticket-container">
+        <h3>TIKET VENTA</h3>
+        <div id="total-lista"></div>
+        <p>Total: <textarea id="total-text" rows="1" readonly>0</textarea></p>
+      </div>
+      <div class="form-group">
+        <div class="form-group">
+          <label for="option">Metodo de pago:</label>
+          <select id="option" name="option" required>
+            <option value="1">Efectivo</option>
+            <option value="2">Debito</option>
+            <option value="3">Credito</option>
+            <option value="4">Transferencia</option>
+          </select>
+        </div>
+      </div>
+      <div class="space-between">
+        <button
+          type="submit"
+          style="background-color: rgb(76, 76, 134); margin-bottom: 5px"
+          class="form-button"
+        >
+          Completar venta!
+        </button>
+      </div>
+    </form>
+    <div id="window" class="window">
+      <div class="window-content">
+        <h3>VENTA CONCRETADA!</h3>
+      </div>
+      <div class="window-content">
+        <button style="background-color: rgb(76, 76, 134)" type="button" id="printButtom" class="window-button">
+          Imprimir Tiket!
+        </button>
+        <button onclick="cerrarVentana()" id="button2" class="window-button">
+          Aceptar
+        </button>
+      </div>
     </div>
-  </form>
-  <div id="window" class="window">
-    <div class="window-content">
-      <h3>VENTA CONCRETADA!</h3>
-    </div>
-    <div class="window-content">
-      <button style="background-color: rgb(76, 76, 134)" type="button" id="printButtom" class="window-button">
-        Imprimir Tiket!
-      </button>
-      <button onclick="cerrarVentana()" id="button2" class="window-button">
-        Aceptar
-      </button>
-    </div>
+    <button
+      style="background-color: rgba(184, 46, 46, 0.767)"
+      class="form-button"
+      onclick="location.href='/caja-diaria'"
+    >
+      Ir a Caja Diaria
+    </bunewList
+    <button
+      style="background-color: rgba(190, 134, 134, 0.767)"
+      class="form-button"
+      onclick="location.href='/'"
+    >
+      Atras
+    </button>
+  </div>    
+  <div class="listContainer">
+  <table class="button-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>KG</th>
+        <th>Tipo</th>
+        <th>Precio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(let i=0; i < newList.length; i++) { %>
+        <tr>
+          <td>
+            <span id="cliente-<%= i %>">
+              <%= newList[i].name.toUpperCase() %>
+            </span>
+          </td>
+          <td>
+            <span id="cliente-<%= i %>">
+              <%= newList[i].peso %>
+            </span>
+          </td>
+          <td>
+            <span id="cliente-<%= i %>">
+              <%= newList[i].tipo.toUpperCase() %>
+            </span>
+          </td>
+          <td>
+            <span id="cliente-<%= i %>">
+              <%= newList[i].price %>
+            </span>
+          </td>
+        </tr>
+        <% } %>
   </div>
-  <button
-    style="background-color: rgba(184, 46, 46, 0.767)"
-    class="form-button"
-    onclick="location.href='/caja-diaria'"
-  >
-    Ir a Caja Diaria
-  </button>
 </div>
 <script>
   function cerrarVentana() {
@@ -161,7 +208,7 @@
     if (name == "" || price == "" || peso == "") {
       alert("Complete todos los campos");
     } else {
-      const tipos = ["PERRO", "GATO","FORRAJE","ACCESORIOS", "OTROS"];
+      const tipos = ["SUELTO", "PERRO", "GATO", "FORRAJE", "ACCESORIOS", "OTROS"];
 
       const sumarTextoButton = document.getElementById("sumarTextoButton");
 

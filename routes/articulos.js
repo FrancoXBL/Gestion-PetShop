@@ -5,7 +5,18 @@ const ruta = verificarYCrearArchivoExcel()
 let ventasDiarias = obtenerCajaDiaria(ruta)
 
 router.get('/nueva-venta', (req, res) =>{
-  res.render('ventas')
+  const newList = [...lista]
+  newList.sort((a, b) => {
+    if(a.name > b.name){
+      return 1
+    }
+    if(a.name < b.name){
+      return -1
+    }
+    return 0
+  })
+  console.log(lista)
+  res.render('ventas', { newList })
 })
 router.get('/caja-diaria', (req, res) =>{
   res.render('caja-diaria', {ventasDiarias})
@@ -38,6 +49,7 @@ router.get("/new-article", (req, res) => {
 
 router.post("/new-article", (req, res) => {
   const newData = req.body
+  fechaDeActualizacion(newData)
   lista.push(newData)
   lista.map((item, index) => {
     item.id = index + 1

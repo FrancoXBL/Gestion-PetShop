@@ -8,7 +8,7 @@ router.get("/new-clientes", (req, res) => {
 });
 router.post("/new-clientes", (req, res) => {
   const data = req.body;
-  console.log(data);
+  fechaDeActualizacion(data)
   clients.push(data)
   clients.map((item, index) =>{
     item.id = index + 1

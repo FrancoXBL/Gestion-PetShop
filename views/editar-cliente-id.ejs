@@ -31,6 +31,10 @@
                 <label for="monto">Monto:</label>
                 <input type="number" id="monto" name="monto" value="<%= client.monto %>" />
             </div>
+            <div class="form-group">
+                <label for="anotaciones">Anotaciones:</label>
+                <input type="text" id="anotaciones" name="anotaciones" value="<%= client.anotaciones %>" />
+            </div>
             <button type="button" style="background-color: rgb(93, 150, 93)" class="form-button"
                 id="next">Siguiente</button>
             <div id="window" class="window">
@@ -65,17 +69,18 @@
                 let telefono = document.getElementById("telefono").value;
                 let direccion = document.getElementById("direccion").value;
                 let monto = document.getElementById("monto").value;
+                let anotaciones = document.getElementById("anotaciones").value;
 
                 if (name == "" || telefono == "" || direccion == "" || monto == "") {
                     alert("Complete todos los campos");
                 } else {
 
-                    window.formData = {id: parseInt(id), name, telefono, direccion, monto: parseInt(monto) }
+                    window.formData = {id: parseInt(id), name, telefono, direccion, monto: parseInt(monto), anotaciones }
 
                     const vpName = document.getElementById("vistaPreviaNombre")
                     const vpTelefono = document.getElementById("vistaPreviaTelefono")
                     const vpDireccion = document.getElementById("vistaPreviaDireccion")
-                    const vpMonto = parseInt(document.getElementById("vistaPreviaMonto"))
+                    const vpMonto = document.getElementById("vistaPreviaMonto")
 
                     vpName.innerHTML = name
                     vpTelefono.innerHTML = telefono

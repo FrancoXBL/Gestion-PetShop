@@ -32,7 +32,7 @@
       </div>
       <button type="button" style="background-color: rgb(93, 150, 93)" class="form-button" id="next">Siguiente</button>
       <div id="window" class="window">
-        <div class="vistaPrevia">
+        <div class="window-content">
           <h4>VISTA PREVIA</h4>
           <p>Nombre:<span id="vistaPreviaNombre"></span></p>
           <p>Tipo:<span id="vistaPreviaTipo"></span></p>
@@ -117,7 +117,8 @@
           console.error("Error:", error);
         })
 
-      cerrarVentana()
+      alert("Cliente creado con exito!")
+      location.href='/edit-clientes'
     }
     )
   </script>
