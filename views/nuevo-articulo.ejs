@@ -20,9 +20,10 @@
         </select>
         <label for="option">Edad:</label>
         <select id="option-edad" name="option-tipo">
-          <option value="1">Adulto</option>
-          <option value="2">Cachorro</option>
-          <option value="3">Senior</option>
+          <option value="1">-</option>
+          <option value="2">Adulto</option>
+          <option value="3">Cachorro</option>
+          <option value="4">Senior</option>
         </select>
         <label for="option">Mordida:</label>
         <select id="option-mordida" name="option-tipo">
@@ -34,12 +35,14 @@
         <label for="price">KG</label>
         <input type="number" id="peso" name="peso" />
       </div>
-      <div class="form-group">
-        <label for="price">Precio:</label>
+      <div style="display: flex; text-align: center;" class="form-group">
+        <label for="price">Precio Bolsa:</label>
         <input type="number" id="price" name="price" />
       </div>
-      <div class="form-group">
-        <label for="stock">Stock:</label>
+      <div style="display: flex; text-align: center;" class="form-group">
+        <label style="text-align: center; margin-right: 4px;" for="price-suelto">Precio Suelto:</label>
+        <input type="number" id="price-suelto" name="price-suelto" />
+        <label style="margin-right: 4px;" for="stock">Stock:</label>
         <input type="number" id="stock" name="stock" />
       </div>
       <button type="button" style="background-color: rgb(93, 150, 93)" class="form-button" id="next">Siguiente</button>
@@ -78,16 +81,17 @@
       let valorMordida = document.getElementById("option-mordida").value;
       let peso = document.getElementById("peso").value;
       let price = document.getElementById("price").value;
+      let priceSuelto = document.getElementById("price-suelto").value;
       let stock = document.getElementById("stock").value;
       optionTipo = ["PERRO", "GATO", "FORRAJE", "ACCESORIOS", "OTROS"]
-      optionEdad = ["ADULTO", "CACHORRO", "SENIOR"]
+      optionEdad = ["-", "ADULTO", "CACHORRO", "SENIOR"]
       optionMordida = ["-", "GRANDE", "MEDIANA", "PEQUENIA"]
 
       if (name == "" || price == "" || peso == "" || stock == "") {
         alert("Complete todos los campos");
       } else {
 
-        window.formData = { name, tipo: optionTipo[option - 1], tipoEdad:optionEdad[valorEdad - 1], tipoMordida:optionMordida[valorMordida - 1], peso, price, stock }
+        window.formData = { name, tipo: optionTipo[option - 1], tipoEdad:optionEdad[valorEdad - 1], tipoMordida:optionMordida[valorMordida - 1], peso, price,precioSuelto:priceSuelto, stock }
 
         const vpName = document.getElementById("vistaPreviaAlimento")
         const vpTipo = document.getElementById("vistaPreviaTipo")

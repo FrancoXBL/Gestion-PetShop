@@ -1,0 +1,36 @@
+<%- include('partials/header'); %>
+<header>
+    <h1>ELIMINAR VENTA</h1>
+  </header>
+  <span id="idAEnviar"><%= id.id %></span>
+  <div class="list-container">
+    <h3>Estas seguro de eliminar la venta de <span><%= venta.totalVenta %></span> hecha en <span><%= venta.tipo %></span>?</h3>
+    <button style="background-color: rgba(184, 46, 46, 0.767); margin: 5px;" class="form-button" class="edit-button" id="sendButton">ELIMINAR</button>
+    <button style="background-color: green; margin-top: 5px;" class="form-button" onclick="location.href='/caja-diaria'">ATRAS</button>
+  </div>
+<%- include('partials/footer'); %>
+<script>
+    const $botonDelete = document.getElementById("sendButton")
+    $botonDelete.addEventListener("click", (event) =>{
+        event.preventDefault()
+        const indexAEliminar = parseInt(document.getElementById("idAEnviar").innerHTML)
+
+        fetch("/eliminar-venta-total", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({indexAEliminar}),
+      })
+        .then((response) => {
+          response.json();
+        })
+        .then((data) => {
+          console.log("Respuesta del servidor:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        })
+        location.href="/caja-diaria"
+    })
+</script>

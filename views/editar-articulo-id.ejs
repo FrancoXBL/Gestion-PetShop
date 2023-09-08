@@ -35,6 +35,10 @@
                 <label for="precio">Precio:</label>
                 <input type="number" id="precio" name="precio" value="<%= article.price %>" />
             </div>
+            <div class="form-group">
+                <label for="precio">Precio suelto:</label>
+                <input type="number" id="precio-suelto" name="precio-suelto" value="<%= article.precioSuelto %>" />
+            </div>
             <button type="button" style="background-color: rgb(93, 150, 93)" class="form-button"
                 id="next">Siguiente</button>
             <div id="window" class="window">
@@ -71,6 +75,7 @@
                 let peso = parseInt(document.getElementById("peso").value);
                 let tipo = document.getElementById("tipo").value;
                 let precio = parseInt(document.getElementById("precio").value);
+                let precioSuelto = parseInt(document.getElementById("precio-suelto").value);
                 let stock = parseInt(document.getElementById("stock").value);
 
                 if (name == "" || peso == "" || precio == "" || stock == "") {
@@ -78,7 +83,7 @@
                 } else {
                     const idEnviar = parseInt(document.getElementById("idEnviar").innerHTML)
 
-                    window.formData = {id:idEnviar, name, peso, tipo, price:precio, stock:stock }
+                    window.formData = {id:idEnviar, name, peso, tipo, price:precio, precioSuelto, stock:stock }
 
                     const vpArticulo = document.getElementById("vistaPreviaArticulo")
                     const vpPeso = document.getElementById("vistaPreviaPeso")

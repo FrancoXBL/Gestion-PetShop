@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { send } = require("express/lib/response");
 const { obtenerLista, actualizarLista, verificarYCrearArchivoExcel, actualizarCajaDiaria, obtenerCajaDiaria, fechaDeActualizacion, verificarYCrearArchivoExcelTotales } = require("../repositorio.articulos");
 const lista = obtenerLista()
 const ruta = verificarYCrearArchivoExcel()
@@ -22,7 +23,11 @@ router.get('/nueva-venta', (req, res) =>{
   res.render('ventas', { newList })
 })
 router.get('/caja-diaria', (req, res) =>{
-  res.render('caja-diaria', {ventasDiarias, sendList})
+  listaReversa = [...ventasDiarias]
+  listaReversa.reverse()
+  sendListReversa = [...sendList]
+  sendListReversa.reverse()
+  res.render('caja-diaria', {listaReversa, ventasDiarias, sendListReversa, sendList})
 })
 router.post('/nueva-venta', (req, res) =>{
   const data = req.body
@@ -110,6 +115,39 @@ router.post("/delete-article-id", (req, res) =>{
 
   actualizarLista(lista)
   
+})
+router.get("/eliminar-venta-total/:id", (req, res) =>{
+  const mostrarArticulosTotales = [...sendList]
+  mostrarArticulosTotales.reverse()
+  const venta = mostrarArticulosTotales[req.params.id]
+  const id = {id:req.params.id}
+  res.render("eliminar-venta-totales", {venta, id})
+})
+
+router.post("/eliminar-venta-total", (req, res) =>{
+  const index = req.body.indexAEliminar
+  sendList.reverse()
+  sendList.splice(index, 1)
+  sendList.reverse()
+
+  actualizarCajaDiaria(sendList, rutaTotales)
+})
+router.get("/eliminar-venta/:id", (req, res) =>{
+  const mostrarArticulos = [...ventasDiarias]
+  mostrarArticulos.reverse()
+  const venta = mostrarArticulos[req.params.id]
+  const id = {id:req.params.id}
+  res.render("eliminar-venta", {venta, id})
+})
+
+router.post("/eliminar-venta", (req, res) =>{
+  const index = req.body.indexAEliminar
+  ventasDiarias.reverse()
+  ventasDiarias.splice(index, 1)
+  ventasDiarias.reverse()
+
+
+  actualizarCajaDiaria(ventasDiarias, ruta)
 })
 
 module.exports = router;

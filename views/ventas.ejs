@@ -9,7 +9,7 @@
     <form id="product-form">
       <div class="form-group">
         <label for="name">Ingrese nombre Producto:</label>
-        <input type="text" id="name" name="name" placeholder="Biopet" />
+        <input type="text" id="name" name="name" placeholder="Ingrese solo nombre del producto" />
       </div>
       <div
         style="display: flex; align-items: center; gap: 10px"
@@ -26,9 +26,10 @@
         </select>
         <label for="option-edad">Edad:</label>
         <select id="option-edad" name="option-edad">
-          <option value="1">Adulto</option>
-          <option value="2">Cachorro</option>
-          <option value="3">Senior</option>
+          <option value="1">-</option>
+          <option value="2">Adulto</option>
+          <option value="3">Cachorro</option>
+          <option value="4">Senior</option>
         </select>
         <label for="option-mordida">Mordida:</label>
         <select id="option-mordida" name="option-mordida">
@@ -52,7 +53,7 @@
         Sumar
       </button>
       <div id="ticket-container">
-        <h3>TIKET VENTA</h3>
+        <h3>TICKET VENTA</h3>
         <div id="total-lista"></div>
         <p>Total: <textarea id="total-text" rows="1" readonly>0</textarea></p>
       </div>
@@ -82,11 +83,11 @@
         <h3>VENTA CONCRETADA!</h3>
       </div>
       <div class="window-content">
-        <button style="background-color: rgb(76, 76, 134)" type="button" id="printButtom" class="window-button">
-          Imprimir Tiket!
-        </button>
-        <button onclick="cerrarVentana()" id="button2" class="window-button">
+        <button style="background-color: rgb(93, 150, 93)" onclick="cerrarVentana()" id="button2" class="window-button">
           Aceptar
+        </button>
+        <button style="background-color: rgb(76, 76, 134)" type="button" id="printButtom" class="window-button">
+          Imprimir Ticket!
         </button>
       </div>
     </div>
@@ -113,6 +114,7 @@
         <th>KG</th>
         <th>Tipo</th>
         <th>Precio</th>
+        <th>Precio Suelto</th>
       </tr>
     </thead>
     <tbody>
@@ -136,6 +138,11 @@
           <td>
             <span id="cliente-<%= i %>">
               <%= newList[i].price %>
+            </span>
+          </td>
+          <td>
+            <span id="cliente-<%= i %>">
+              <%= newList[i].precioSuelto%>
             </span>
           </td>
         </tr>
@@ -225,7 +232,7 @@
     } else {
 
       const tipos = ["SUELTO", "PERRO", "GATO", "FORRAJE", "ACCESORIOS", "OTROS"];
-      const tiposEdad = ["ADULTO", "CACHORRO", "SENIOR"];
+      const tiposEdad = ["-", "ADULTO", "CACHORRO", "SENIOR"];
       const tiposMordida = ["-", "GRANDE", "MEDIANA","PEQUENIA"];
 
       const sumarTextoButton = document.getElementById("sumarTextoButton");
@@ -245,7 +252,7 @@
 
       document.getElementById("name").value = "";
       document.getElementById("price").value = "";
-      document.getElementById("peso").value = "";
+      document.getElementById("peso").value = "0";
     }
   });
 
