@@ -316,3 +316,9 @@ body {
   max-width: 80vw;
   display: flex;
 }
+.material-symbols-outlined{
+  border-radius: 5px;
+}
+.material-symbols-outlined:hover{
+  cursor: pointer;
+}

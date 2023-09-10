@@ -43,6 +43,9 @@
       <button style="background-color: rgb(37, 37, 134); margin: 5px;" class="form-button" id="printButtom">
         Imprimir ventas diarias
       </button>
+      <button style="background-color: rgb(199, 163, 45); margin: 5px;" class="form-button" id="gastosButton">
+        Sumar Gastos
+      </button>
     </div>
     <div style="display: flex;" class="blockventas">
       <div style="max-width: 40%;" class="list-container">
@@ -83,12 +86,13 @@
                   </span>
                 </td>
                 <td>
-                  <span class="precios" id="cliente-<%= i %>">
+                  <span style="color: green;">$</span>
+                  <span style="color: green;" id="cliente-<%= i %>">
                     <%= listaReversa[i].price %>
                   </span>
                 </td>
                 <td>
-                  <span class="opcion" id="opcion-<%= i %>">
+                  <span id="opcion-<%= i %>">
                     <%= listaReversa[i].option %>
                   </span>
                 </td>
@@ -114,12 +118,13 @@
             <% for(let i = 0 ; i < sendListReversa.length ; i++) { %>
               <tr>
                 <td>
-                  <span>
+                  <span class="opcion">
                     <%= sendListReversa[i].tipo %>
                   </span>
                 </td>
                 <td>
-                  <span>
+                  <span style="color: green;">$</span>
+                  <span style="color: green;" class="precios">
                     <%= sendListReversa[i].totalVenta %>
                   </span>
                 </td>
@@ -131,6 +136,46 @@
           </tbody>
         </table>
       </div>
+      <div style="max-width: 30%;" class="list-container">
+        <h1>GASTOS</h1>
+        <table class="button-table">
+          <thead>
+            <tr>
+              <th>CANTIDAD:</th>
+              <th>GASTADO DE:</th>
+              <th>ELIMINAR</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(let i = 0 ; i < sendListaGastosReversa.length ; i++) { %>
+              <tr>
+                <td>
+                  <span style="color: red;">$</span>
+                  <span style="color: red;" class="gastos">
+                    <%= sendListaGastosReversa[i].monto %>
+                  </span>
+                </td>
+                <td>
+                  <span class="tipoGastos">
+                    <%= sendListaGastosReversa[i].tipoGasto %>
+                  </span>
+                </td>
+                <td>
+                  <a style="background-color: red; color: white;" class="material-symbols-outlined" onclick="deleteGastos(<%= i %>)">delete</a>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+          <div class="total-item">
+            <span>Total Gastos Caja:</span>
+            <input style="color: red;" readonly class="total-box" id="total-gastos" value="0" />
+          </div>
+          <div class="total-item">
+            <span>Total Gastos Negocio:</span>
+            <input style="color: red;" readonly class="total-box" id="total-gastos-negocio" value="0" />
+          </div>
+      </div>
     </div>
   </div>
   <script>
@@ -141,13 +186,60 @@
     function deleteVentaTotales(index){
       location.href=`/eliminar-venta-total/${index}`
     }
+    function deleteGastos(index){
+      location.href=`/eliminar-gasto/${index}`
+    }
 
+    const $gastosButton = document.getElementById("gastosButton")
+    $gastosButton.addEventListener("click", (event) => {
+      event.preventDefault()
+      location.href="/ingresar-gasto"
+    })
+
+    const gastos = document.querySelectorAll(".gastos")
+    const tipoGastos = document.querySelectorAll(".tipoGastos")
+
+    const gastosNew = []
+    gastos.forEach((i) => {
+      gastosNew.push(i.innerText)
+    })
+
+    const tipoGastosNew = []
+    tipoGastos.forEach((i) => {
+      tipoGastosNew.push(i.innerText)
+    })
+
+    gastosFormatArr = []
+    gastosNew.map((a, index) => {
+      let obj = {gasto:gastosNew[index], tipoGasto:tipoGastosNew[index]}
+      gastosFormatArr.push(obj)
+    })
+
+
+    $totalGastosCaja = 0
+    $totalGastosNegocio = 0
+    gastosFormatArr.map((item) => {
+      if(item.tipoGasto == "CAJA DIARIA"){
+        $totalGastosCaja += parseInt(item.gasto)
+      }
+      if(item.tipoGasto == "FONDOS NEGOCIO"){
+        $totalGastosNegocio += parseInt(item.gasto)
+      }
+    })
+
+
+    const $totalGastosCajaMostrar = document.getElementById("total-gastos")
+    $totalGastosCajaMostrar.value = `$ ${$totalGastosCaja}`
+
+    const $totalGastosNegocioMostrar = document.getElementById("total-gastos-negocio")
+    $totalGastosNegocioMostrar.value = `$ ${$totalGastosNegocio}`
 
     const tiposVentas = document.querySelectorAll(".opcion")
     const tiposVentasNew = []
     tiposVentas.forEach((i) => {
       tiposVentasNew.push(i.innerText)
     })
+
 
     const ventas = document.querySelectorAll(".precios")
     const ventasNew = []
@@ -207,9 +299,11 @@
       const totalCredito = document.getElementById("total-credito").value
       const totalTransferencia = document.getElementById("total-transferencia").value
       const totalGlobal = document.getElementById("total-global").value
+      const totalGastos = document.getElementById("total-gastos").value
+      const totalGastosNegocio = document.getElementById("total-gastos-negocio").value
       const currentDate = document.getElementById("current-date").innerHTML
 
-      document.body.innerHTML = `<h1>VENTAS DIARIAS </h1> \n <hr> \n FECHA: ${currentDate} \n <p>TOTAL EFECTIVO: ${totalEfectivo} \n <p>TOTAL DEBITO: ${totalDebito} \n <p>TOTAL CREDITO: ${totalCredito} \n <p>TOTAL TRANSFERENCIA: ${totalTransferencia}</p> \n <p>TOTAL GLOBAL: ${totalGlobal} <hr>`
+      document.body.innerHTML = `<h1>VENTAS DIARIAS </h1> \n <hr> \n FECHA: ${currentDate} \n <p>TOTAL EFECTIVO: ${totalEfectivo} \n <p>TOTAL DEBITO: ${totalDebito} \n <p>TOTAL CREDITO: ${totalCredito} \n <p>TOTAL TRANSFERENCIA: ${totalTransferencia}</p> \n <p>TOTAL GLOBAL: ${totalGlobal} <hr> \n <p>TOTAL GASTOS: ${totalGastos} \n <p>TOTAL GLOBAL: ${totalGastosNegocio} <hr>`
       window.print();
       document.body.innerHTML = backup;
 

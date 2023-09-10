@@ -1,0 +1,57 @@
+<%- include('partials/header'); %>
+<header>
+    <h1>AGREGAR GASTOS</h1>
+</header>
+<div class="form-container">
+    <form action="">
+        <div class="form-group">
+            <label for="cantidadGasto">Ingrese el monto que se gasto:</label>
+            <input type="number" name="cantidadGasto" id="cantidadGasto" required>
+        </div>
+            <div class="form-group">
+                <label for="tipoDeGasto">El monto fue retirado de:</label>
+                <select name="option" id="option">
+                    <option value="CAJA DIARIA">CAJA DIARIA</option>
+                    <option value="FONDOS NEGOCIO">FONDOS NEGOCIO</option>
+                </select>
+            </div>
+    </form>
+    <button style="background-color: rgb(93, 150, 93); margin-top: 5px;" class="form-button" id="sendButton"">
+      Aceptar y sumar gasto
+    </button>
+    <button style="background-color: rgba(184, 46, 46, 0.767); margin-top: 5px;" class="form-button" onclick="location.href='/caja-diaria'">
+      Atras
+    </button>
+</div>
+</div>
+
+<script>
+    const $sendButton = document.getElementById("sendButton")
+    $sendButton.addEventListener("click", (event) => {
+        event.preventDefault()
+
+        const $enviarMonto = document.getElementById("cantidadGasto").value
+        const $enviarTipoGasto = document.getElementById("option").value
+
+        fetch("/ingresar-gasto", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({monto:$enviarMonto, tipoGasto:$enviarTipoGasto}),
+      })
+        .then((response) => {
+          response.json();
+        })
+        .then((data) => {
+          console.log("Respuesta del servidor:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        })
+
+        alert("Gasto agregado!")
+        location.href="/caja-diaria"
+    })
+</script>
+<%- include('partials/footer'); %>
