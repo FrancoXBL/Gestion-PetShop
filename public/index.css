@@ -322,3 +322,7 @@ body {
 .material-symbols-outlined:hover{
   cursor: pointer;
 }
+
+body{
+  font-size: large;
+}
