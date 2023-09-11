@@ -1,330 +1,324 @@
 <%- include('partials/header'); %>
-<header class="header-content">
-  <h1 class="header-title">NUEVA VENTA</h1>
-</header>
-<div class="blokeventas">
+  <header class="header-content">
+    <h1 class="header-title">NUEVA VENTA</h1>
+  </header>
+  <div class="blokeventas">
 
-  <div class="form-container">
-    <h1>Formulario de Venta</h1>
-    <form id="product-form">
-      <div class="form-group">
-        <label for="name">Ingrese nombre Producto:</label>
-        <input type="text" id="name" name="name" value="-" />
-      </div>
-      <div
-        style="display: flex; align-items: center; gap: 10px"
-        class="form-group"
-      >
-        <label for="option">Tipo:</label>
-        <select id="option-tipo" name="option-tipo">
-          <option value="1">Suelto</option>
-          <option value="2">Perro</option>
-          <option value="3">Gato</option>
-          <option value="4">Forraje</option>
-          <option value="5">Accesorios</option>
-          <option value="6">Otros</option>
-        </select>
-        <label for="option-edad">Edad:</label>
-        <select id="option-edad" name="option-edad">
-          <option value="1">-</option>
-          <option value="2">Adulto</option>
-          <option value="3">Cachorro</option>
-          <option value="4">Senior</option>
-        </select>
-        <label for="option-mordida">Mordida:</label>
-        <select id="option-mordida" name="option-mordida">
-          <option value="1">-</option>
-          <option value="2">Grande</option>
-          <option value="3">Mediana</option>
-          <option value="4">Pequeña</option>
-        </select>
-        <label for="price">KG</label>
-        <input type="number" id="peso" name="peso" value="0" />
-      </div>
-      <div class="form-group">
-        <label for="price">Precio:</label>
-        <input type="number" id="price" name="price" />
-      </div>
-      <button
-        style="background-color: rgb(93, 150, 93)"
-        id="sumarTextoButton"
-        class="form-button"
-      >
-        Sumar
-      </button>
-      <div id="ticket-container">
-        <h3>TICKET VENTA</h3>
-        <div id="total-lista"></div>
-        <p>Total: <textarea id="total-text" rows="1" readonly>0</textarea></p>
-      </div>
-      <div class="form-group">
+    <div class="form-container">
+      <h1>Formulario de Venta</h1>
+      <form id="product-form">
         <div class="form-group">
-          <label for="option">Metodo de pago:</label>
-          <select id="option" name="option" required>
-            <option style="font-size: 30px;" value="1">Efectivo</option>
-            <option style="font-size: 30px;" value="2">Debito</option>
-            <option style="font-size: 30px;" value="3">Credito</option>
-            <option style="font-size: 30px;" value="4">Transferencia</option>
+          <label for="name">Ingrese nombre Producto:</label>
+          <input type="text" id="name" name="name" value="-" />
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px" class="form-group">
+          <label for="option">Tipo:</label>
+          <select id="option-tipo" name="option-tipo">
+            <option value="1">Suelto</option>
+            <option value="2">Perro</option>
+            <option value="3">Gato</option>
+            <option value="4">Forraje</option>
+            <option value="5">Accesorios</option>
+            <option value="6">Otros</option>
           </select>
+          <label for="option-edad">Edad:</label>
+          <select id="option-edad" name="option-edad">
+            <option value="1">-</option>
+            <option value="2">Adulto</option>
+            <option value="3">Cachorro</option>
+            <option value="4">Senior</option>
+          </select>
+          <label for="option-mordida">Mordida:</label>
+          <select id="option-mordida" name="option-mordida">
+            <option value="1">-</option>
+            <option value="2">Grande</option>
+            <option value="3">Mediana</option>
+            <option value="4">Pequeña</option>
+          </select>
+          <label for="price">KG</label>
+          <input type="number" id="peso" name="peso" value="0" />
+        </div>
+        <div class="form-group">
+          <label for="price">Precio:</label>
+          <input type="number" id="price" name="price" />
+        </div>
+        <button style="background-color: rgb(93, 150, 93)" id="sumarTextoButton" class="form-button">
+          Sumar
+        </button>
+        <div id="ticket-container">
+          <h3>TICKET VENTA</h3>
+          <div id="total-lista"></div>
+          <p>Total: <textarea id="total-text" rows="1" readonly>0</textarea></p>
+        </div>
+        <div class="form-group">
+          <div class="form-group">
+            <label for="option">Metodo de pago:</label>
+            <select id="option" name="option" required>
+              <option style="font-size: 30px;" value="1">Efectivo</option>
+              <option style="font-size: 30px;" value="2">Debito</option>
+              <option style="font-size: 30px;" value="3">Credito</option>
+              <option style="font-size: 30px;" value="4">Transferencia</option>
+            </select>
+          </div>
+        </div>
+        <div class="space-between">
+          <button type="submit" style="background-color: rgb(76, 76, 134); margin-bottom: 5px" class="form-button">
+            Completar venta!
+          </button>
+        </div>
+      </form>
+      <div id="window" class="window">
+        <div class="window-content">
+          <h3>VENTA CONCRETADA!</h3>
+        </div>
+        <div class="window-content">
+          <button style="background-color: rgb(93, 150, 93)" onclick="cerrarVentana()" id="button2"
+            class="window-button">
+            Aceptar
+          </button>
+          <button style="background-color: rgb(76, 76, 134)" type="button" id="printButtom" class="window-button">
+            Imprimir Ticket!
+          </button>
         </div>
       </div>
-      <div class="space-between">
-        <button
-          type="submit"
-          style="background-color: rgb(76, 76, 134); margin-bottom: 5px"
-          class="form-button"
-        >
-          Completar venta!
-        </button>
-      </div>
-    </form>
-    <div id="window" class="window">
-      <div class="window-content">
-        <h3>VENTA CONCRETADA!</h3>
-      </div>
-      <div class="window-content">
-        <button style="background-color: rgb(93, 150, 93)" onclick="cerrarVentana()" id="button2" class="window-button">
-          Aceptar
-        </button>
-        <button style="background-color: rgb(76, 76, 134)" type="button" id="printButtom" class="window-button">
-          Imprimir Ticket!
-        </button>
-      </div>
+      <button style="background-color: rgba(184, 46, 46, 0.767)" class="form-button"
+        onclick="location.href='/caja-diaria'">
+        Ir a Caja Diaria
+      </button>
+      <button style="background-color: rgba(190, 134, 134, 0.767)" class="form-button" onclick="location.href='/'">
+        Atras
+      </button>
     </div>
-    <button
-      style="background-color: rgba(184, 46, 46, 0.767)"
-      class="form-button"
-      onclick="location.href='/caja-diaria'"
-    >
-      Ir a Caja Diaria
-    </button>
-    <button
-      style="background-color: rgba(190, 134, 134, 0.767)"
-      class="form-button"
-      onclick="location.href='/'"
-    >
-      Atras
-    </button>
-  </div>    
-  <div class="listContainer">
-  <table class="button-table">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>KG</th>
-        <th>Tipo</th>
-        <th>Precio</th>
-        <th>Precio Suelto</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% for(let i=0; i < newList.length; i++) { %>
-        <tr>
-          <td>
-            <span id="cliente-<%= i %>">
-              <%= newList[i].name.toUpperCase() %>
-            </span>
-          </td>
-          <td>
-            <span id="cliente-<%= i %>">
-              <%= newList[i].peso %>
-            </span>
-          </td>
-          <td>
-            <span id="cliente-<%= i %>">
-              <%= newList[i].tipo.toUpperCase() %>
-            </span>
-          </td>
-          <td>
-            <span id="cliente-<%= i %>">
-              <%= newList[i].price %>
-            </span>
-          </td>
-          <td>
-            <span id="cliente-<%= i %>">
-              <%= newList[i].precioSuelto%>
-            </span>
-          </td>
-        </tr>
-        <% } %>
+    <div class="listContainer">
+      <table class="button-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>KG</th>
+            <th>Tipo</th>
+            <th>Precio</th>
+            <th>Precio Suelto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let i=0; i < newList.length; i++) { %>
+            <tr>
+              <td>
+                <span id="cliente-<%= i %>">
+                  <%= newList[i].name.toUpperCase() %>
+                </span>
+              </td>
+              <td>
+                <span id="cliente-<%= i %>">
+                  <%= newList[i].peso %>
+                </span>
+              </td>
+              <td>
+                <span id="cliente-<%= i %>">
+                  <%= newList[i].tipo.toUpperCase() %>
+                </span>
+              </td>
+              <td>
+                <span id="cliente-<%= i %>">
+                  <%= newList[i].price %>
+                </span>
+              </td>
+              <td>
+                <span id="cliente-<%= i %>">
+                  <%= newList[i].precioSuelto%>
+                </span>
+              </td>
+            </tr>
+            <% } %>
+    </div>
   </div>
-</div>
-<script>
-  function cerrarVentana() {
-    var windowElement = document.getElementById("window");
-    windowElement.classList.toggle("visible");
-  }
+  <script>
+    function cerrarVentana() {
+      var windowElement = document.getElementById("window");
+      windowElement.classList.toggle("visible");
+    }
 
-  window.ticketListaItems = [];
-  window.price = 0;
+    window.ticketListaItems = [];
+    window.price = 0;
 
-  function colocarPrecioTotal() {
-    let montoTotal = 0;
-    window.ticketListaItems.map((item) => {
-      montoTotal += parseInt(item.price);
-      return montoTotal;
-    });
-    let total = document.getElementById("total-text");
-    total.value = montoTotal;
-  }
-  function dibujarItems() {
-    const $totalLista = document.getElementById("total-lista");
+    function colocarPrecioTotal() {
+      let montoTotal = 0;
+      window.ticketListaItems.map((item) => {
+        montoTotal += parseInt(item.price);
+        return montoTotal;
+      });
+      let total = document.getElementById("total-text");
+      total.value = montoTotal;
+    }
+    function dibujarItems() {
+      const $totalLista = document.getElementById("total-lista");
 
-    removerItems($totalLista);
+      removerItems($totalLista);
 
-    window.ticketListaItems.map((aTicketListaItem, index) => {
-      const $div = document.createElement("div");
-      $div.classList.add("ticket__item");
+      window.ticketListaItems.map((aTicketListaItem, index) => {
+        const $div = document.createElement("div");
+        $div.classList.add("ticket__item");
 
-      const $spanDescripcion = document.createElement("span");
+        const $spanDescripcion = document.createElement("span");
 
-      $spanDescripcion.innerHTML =
-        `${aTicketListaItem.name} ${aTicketListaItem.tipos} de ${aTicketListaItem.peso}kg - $${aTicketListaItem.price}`.toUpperCase();
+        $spanDescripcion.innerHTML =
+          `${aTicketListaItem.name} ${aTicketListaItem.tipos} de ${aTicketListaItem.peso}kg - $${aTicketListaItem.price}`.toUpperCase();
 
-      $div.appendChild($spanDescripcion);
+        $div.appendChild($spanDescripcion);
 
-      const $buttonBorrar = document.createElement("button");
+        const $buttonBorrar = document.createElement("button");
 
-      const $spanIcon = document.createElement("span");
+        const $spanIcon = document.createElement("span");
 
-      $spanIcon.classList.add("material-symbols-outlined");
+        $spanIcon.classList.add("material-symbols-outlined");
 
-      $spanIcon.innerHTML = "delete";
+        $spanIcon.innerHTML = "delete";
 
-      $buttonBorrar.appendChild($spanIcon);
+        $buttonBorrar.appendChild($spanIcon);
 
-      $div.appendChild($buttonBorrar);
-      $div.setAttribute("id", index);
-      $totalLista.appendChild($div);
+        $div.appendChild($buttonBorrar);
+        $div.setAttribute("id", index);
+        $totalLista.appendChild($div);
 
-      $buttonBorrar.addEventListener("click", (event) => {
-        const $div = event.currentTarget.parentNode;
-        const id = $div.getAttribute("id");
+        $buttonBorrar.addEventListener("click", (event) => {
+          const $div = event.currentTarget.parentNode;
+          const id = $div.getAttribute("id");
 
-        window.ticketListaItems.splice(id, 1);
+          window.ticketListaItems.splice(id, 1);
+
+          dibujarItems();
+
+          colocarPrecioTotal();
+        });
+      });
+    }
+    function removerItems($totalLista) {
+      let child = $totalLista.lastElementChild;
+      while (child) {
+        $totalLista.removeChild(child);
+        child = $totalLista.lastElementChild;
+      }
+    }
+
+    sumarTextoButton.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      let name = document.getElementById("name").value
+      let price = document.getElementById("price").value;
+      let optionTipo = document.getElementById("option-tipo").value;
+      let optionEdad = document.getElementById("option-edad").value;
+      let optionMordida = document.getElementById("option-mordida").value;
+      let peso = document.getElementById("peso").value;
+
+      function primerCaracterNoEsNumero(cadena) {
+
+        const primerCaracter = cadena.charAt(0);
+        return isNaN(primerCaracter);
+      }
+
+      if (primerCaracterNoEsNumero(price)) {
+        price = price.slice(1);
+      }
+
+
+      if (name == "" || price == "" || peso == "") {
+        alert("Complete todos los campos");
+      } else {
+
+        const tipos = ["SUELTO", "PERRO", "GATO", "FORRAJE", "ACCESORIOS", "OTROS"];
+        const tiposEdad = ["-", "ADULTO", "CACHORRO", "SENIOR"];
+        const tiposMordida = ["-", "GRANDE", "MEDIANA", "PEQUENIA"];
+
+        const sumarTextoButton = document.getElementById("sumarTextoButton");
+
+        window.ticketListaItems.push({
+          name: name.toUpperCase(),
+          price,
+          tipos: tipos[optionTipo - 1],
+          tiposEdad: tiposEdad[optionEdad - 1],
+          tiposMordida: tiposMordida[optionMordida - 1],
+          peso,
+        });
 
         dibujarItems();
 
         colocarPrecioTotal();
-      });
+
+        document.getElementById("name").value = "";
+        document.getElementById("price").value = "";
+        document.getElementById("peso").value = "0";
+      }
     });
-  }
-  function removerItems($totalLista) {
-    let child = $totalLista.lastElementChild;
-    while (child) {
-      $totalLista.removeChild(child);
-      child = $totalLista.lastElementChild;
-    }
-  }
 
-  sumarTextoButton.addEventListener("click", (event) => {
-    event.preventDefault();
+    const printButtom = document.getElementById("printButtom");
+    printButtom.addEventListener("click", (event) => {
+      event.preventDefault();
+      const backup = document.body.innerHTML;
+      document.body.innerHTML = `<p>${textPrint}</p>`
+      window.print();
+      document.body.innerHTML = backup;
 
-    let name = document.getElementById("name").value
-    let price = document.getElementById("price").value;
-    let optionTipo = document.getElementById("option-tipo").value;
-    let optionEdad = document.getElementById("option-edad").value;
-    let optionMordida = document.getElementById("option-mordida").value;
-    let peso = document.getElementById("peso").value;
+      location.reload()
+    });
 
-    if (name == "" || price == "" || peso == "") {
-      alert("Complete todos los campos");
-    } else {
+    const form = document.getElementById("product-form");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
 
-      const tipos = ["SUELTO", "PERRO", "GATO", "FORRAJE", "ACCESORIOS", "OTROS"];
-      const tiposEdad = ["-", "ADULTO", "CACHORRO", "SENIOR"];
-      const tiposMordida = ["-", "GRANDE", "MEDIANA","PEQUENIA"];
+      if (window.ticketListaItems.length == 0) {
+        alert("Suma un producto al tiket antes de concretar venta");
+      } else {
+        let option = document.getElementById("option").value;
 
-      const sumarTextoButton = document.getElementById("sumarTextoButton");
+        const pago = ["EFECTIVO", "DEBITO", "CREDITO", "TRANSFERENCIA"];
+        option = pago[option - 1];
+        let total = document.getElementById("total-text");
+        textTotal = total.value
+        forPrint = [...window.ticketListaItems]
+        formData = [...window.ticketListaItems, { option }];
+        window.ticketListaItems = [];
+        total.value = 0;
+        document.getElementById("name").value = "";
+        document.getElementById("price").value = "";
+        document.getElementById("peso").value = "";
 
-      window.ticketListaItems.push({
-        name: name.toUpperCase(),
-        price,
-        tipos: tipos[optionTipo - 1],
-        tiposEdad: tiposEdad[optionEdad - 1],
-        tiposMordida: tiposMordida[optionMordida - 1],
-        peso,
-      });
-      
-      dibujarItems();
-
-      colocarPrecioTotal();
-
-      document.getElementById("name").value = "";
-      document.getElementById("price").value = "";
-      document.getElementById("peso").value = "0";
-    }
-  });
-
-  const printButtom = document.getElementById("printButtom");
-  printButtom.addEventListener("click", (event) => {
-    event.preventDefault();
-    const backup = document.body.innerHTML;
-    document.body.innerHTML = `<p>${textPrint}</p>`
-    window.print();
-    document.body.innerHTML = backup;
-
-    location.reload()
-  });
-
-  const form = document.getElementById("product-form");
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    if (window.ticketListaItems.length == 0) {
-      alert("Suma un producto al tiket antes de concretar venta");
-    } else {
-      let option = document.getElementById("option").value;
-
-      const pago = ["EFECTIVO", "DEBITO", "CREDITO", "TRANSFERENCIA"];
-      option = pago[option - 1];
-      let total = document.getElementById("total-text");
-      textTotal = total.value
-      forPrint = [...window.ticketListaItems]
-      formData = [...window.ticketListaItems, { option }];
-      window.ticketListaItems = [];
-      total.value = 0;
-      document.getElementById("name").value = "";
-      document.getElementById("price").value = "";
-      document.getElementById("peso").value = "";
-
-      const $totalLista = document.getElementById("total-lista");
-      removerItems($totalLista);
-      console.log(formData)
-      fetch("/nueva-venta", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      })
-        .then((response) => {
-          response.json();
+        const $totalLista = document.getElementById("total-lista");
+        removerItems($totalLista);
+        console.log(formData)
+        fetch("/nueva-venta", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         })
-        .then((data) => {
-          console.log("Respuesta del servidor:", data);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+          .then((response) => {
+            response.json();
+          })
+          .then((data) => {
+            console.log("Respuesta del servidor:", data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
 
-      textPrint = `<p style="font-size: 30px;
+        textPrint = `<p style="font-size: 30px;
   text-align: center;">TICKET DE VENTA</p><hr>`
 
-      forPrint.map((data, index) => {
-        
-       let {name, price, tipos, peso} = data
-        textPrint += `<p>${name} ${tipos} de ${peso} - $${price}</p>`
-      })
+        forPrint.map((data, index) => {
 
-      textPrint += `<hr><p style="font-size: 20px;">Total: $${textTotal} - ${option}</p>`
+          let { name, price, tipos, peso } = data
+          textPrint += `<p>${name} ${tipos} de ${peso} - $${price}</p>`
+        })
 
-      textPrint += `<hr>No valido como factura <hr> <h3>FORRAJERIA EL CARDENAL, TELEFONO: 3434 68-5565`
+        textPrint += `<hr><p style="font-size: 20px;">Total: $${textTotal} - ${option}</p>`
 
-      let windowElement = document.getElementById("window");
-      windowElement.classList.toggle("visible");
-      formData = [];
-    }
-  });
-</script>
-<%- include('partials/footer'); %>
+        textPrint += `<hr>No valido como factura <hr> <h3>FORRAJERIA EL CARDENAL, TELEFONO: 3434 68-5565`
+
+        let windowElement = document.getElementById("window");
+        windowElement.classList.toggle("visible");
+        formData = [];
+      }
+    });
+  </script>
+  <%- include('partials/footer'); %>
