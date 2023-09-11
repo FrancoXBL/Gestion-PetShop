@@ -1,0 +1,69 @@
+<%- include('partials/header'); %>
+    <header>
+        <h1>CAJA MENSUAL</h1>
+    </header>
+    <div style="max-width: 40%;" class="list-container">
+        <table class="button-table">
+            <thead>
+                <tr>
+                    <th>FECHA</th>
+                    <th>TOTAL GLOBAL</th>
+                    <th>TOTAL EFECTIVO</th>
+                    <th>TOTAL DEBITO</th>
+                    <th>TOTAL TRANSFERENCIA</th>
+                    <th>TOTAL CREDITO</th>
+                    <th>GASTOS NEGOCIO</th>
+                    <th>GASTOS CAJA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let i=0 ; i < listaCajaMensual.length ; i++) { %>
+                    <tr>
+                        <td>
+                            <span id="cliente-<%= i %>">
+                                <%= listaCajaMensual[i].fecha %>
+                            </span>
+                        </td>
+                        <td>
+                            <span id="cliente-<%= i %>">
+                                <%= listaCajaMensual[i].totalGlobal %>
+                            </span>
+                        </td>
+                        <td>
+                            <span id="cliente-<%= i %>">
+                                <%= listaCajaMensual[i].totalEfectivo %>
+                            </span>
+                        <td>
+                            <span id="cliente-<%= i %>">
+                                <%= listaCajaMensual[i].totalDebito %>
+                            </span>
+                        </td>
+                        <td>
+
+                            <span id="cliente-<%= i %>">
+                                <%= listaCajaMensual[i].totalTransferencia %>
+                            </span>
+                        </td>
+                        <td>
+
+                            <span id="cliente-<%= i %>">
+                                <%= listaCajaMensual[i].totalCredito %>
+                            </span>
+                        </td>
+                        <td>
+
+                            <span id="cliente-<%= i %>">
+                                <%= listaCajaMensual[i].totalGastos %>
+                            </span>
+                        </td>
+                        <td>
+
+                            <span id="cliente-<%= i %>">
+                                <%= listaCajaMensual[i].totalGastosNegocio %>
+                            </span>
+                        </td>
+                        <% } %>
+            </tbody>
+        </table>
+    </div>
+    <%- include('partials/footer'); %>

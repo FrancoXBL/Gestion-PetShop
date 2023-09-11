@@ -32,6 +32,16 @@ function obtenerCajaDiaria(ruta) {
   return data;
 }
 
+function obtenerCajaMensual(ruta) {
+  const workbook = XLSX.readFile(ruta);
+
+  const sheetName = workbook.SheetNames[0];
+  const sheet = workbook.Sheets[sheetName];
+
+  const data = XLSX.utils.sheet_to_json(sheet);
+  return data;
+}
+
 function actualizarLista(lista) {
 
   const workbook = XLSX.readFile("lista.xlsx");
@@ -158,7 +168,31 @@ function fechaDeActualizacion(data){
   data.fechaActualizacion = fechaActual.toISOString().slice(0, 10)
 }
 
+function verificarYCrearArchivoExcelCajaMensual() {
+  const carpetaCajasMensuales = 'cajas-mensuales';
+  const fechaActual = new Date();
+  const fechaFormato = fechaActual.getMonth() + "-" + fechaActual.getFullYear()
+
+  const nombreArchivo = `mes-${fechaFormato}.xlsx`;
+  const rutaArchivo = path.join(__dirname, carpetaCajasMensuales, nombreArchivo);
+
+
+  if (!fs.existsSync(rutaArchivo)) {
+
+    const workbook = XLSX.utils.book_new();
+    const hoja = XLSX.utils.aoa_to_sheet([['A']]);
+
+    XLSX.utils.book_append_sheet(workbook, hoja, 'Hoja1')
+
+    XLSX.writeFile(workbook, rutaArchivo);
+    console.log(`Se ha creado el archivo "${nombreArchivo}".`);
+  }
+  return rutaArchivo
+}
+
 module.exports = {
+  obtenerCajaMensual,
+  verificarYCrearArchivoExcelCajaMensual,
   verificarYCrearArchivoExcelGastos,
   verificarYCrearArchivoExcelTotales,
   fechaDeActualizacion,

@@ -1,6 +1,7 @@
 const router = require("express").Router();
-const { send } = require("express/lib/response");
 const {
+  verificarYCrearArchivoExcelCajaMensual,
+  obtenerCajaMensual,
   verificarYCrearArchivoExcelGastos,
   obtenerLista,
   actualizarLista,
@@ -10,14 +11,17 @@ const {
   fechaDeActualizacion,
   verificarYCrearArchivoExcelTotales,
 } = require("../repositorio.articulos");
+const e = require("express");
 const lista = obtenerLista();
 const ruta = verificarYCrearArchivoExcel();
 const rutaTotales = verificarYCrearArchivoExcelTotales();
 const rutaGastos = verificarYCrearArchivoExcelGastos();
+const rutaCajaMensual = verificarYCrearArchivoExcelCajaMensual()
 let ventasDiarias = obtenerCajaDiaria(ruta);
 let totalVenta = 0;
 let sendList = obtenerCajaDiaria(rutaTotales);
 let listaGastos = obtenerCajaDiaria(rutaGastos);
+let listaCajaMensual = obtenerCajaMensual(rutaCajaMensual)
 
 router.get("/nueva-venta", (req, res) => {
   const newList = [...lista];
@@ -191,5 +195,13 @@ router.post("/eliminar-gasto", (req, res) => {
 
   actualizarCajaDiaria(listaGastos, rutaGastos);
 });
+router.get("/caja-mensual", (req, res) => {
+  res.render("caja-mensual", {listaCajaMensual})
+})
+router.post("/caja-mensual", (req, res) => {
+  const obj = req.body
+  listaCajaMensual.push(obj)
+  actualizarCajaDiaria(listaCajaMensual, rutaCajaMensual)
+})
 
 module.exports = router;

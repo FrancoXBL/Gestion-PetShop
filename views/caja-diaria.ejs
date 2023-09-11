@@ -62,7 +62,7 @@
             </tr>
           </thead>
           <tbody>
-            <% for(let i = 0 ; i < listaReversa.length ; i++) { %>
+            <% for(let i=0 ; i < listaReversa.length ; i++) { %>
               <tr>
                 <td>
                   <span id="cliente-<%= i %>">
@@ -97,7 +97,8 @@
                   </span>
                 </td>
                 <td>
-                  <a style="background-color: red; color: white;" class="material-symbols-outlined" onclick="deleteVenta(<%= i %>)">delete</a>
+                  <a style="background-color: red; color: white;" class="material-symbols-outlined"
+                    onclick="deleteVenta(<%= i %>)">delete</a>
                 </td>
               </tr>
               <% } %>
@@ -115,7 +116,7 @@
             </tr>
           </thead>
           <tbody>
-            <% for(let i = 0 ; i < sendListReversa.length ; i++) { %>
+            <% for(let i=0 ; i < sendListReversa.length ; i++) { %>
               <tr>
                 <td>
                   <span class="opcion">
@@ -129,12 +130,16 @@
                   </span>
                 </td>
                 <td>
-                  <a style="background-color: red; color: white;" class="material-symbols-outlined" onclick="deleteVentaTotales(<%= i %>)">delete</a>
+                  <a style="background-color: red; color: white;" class="material-symbols-outlined"
+                    onclick="deleteVentaTotales(<%= i %>)">delete</a>
                 </td>
               </tr>
               <% } %>
           </tbody>
         </table>
+        <button style="background-color: rgb(15, 149, 158); margin: 5px;" class="form-button" id="cerrarCaja">
+          CERRAR CAJA DEL DIA
+        </button>
       </div>
       <div style="max-width: 30%;" class="list-container">
         <h1>GASTOS</h1>
@@ -147,7 +152,7 @@
             </tr>
           </thead>
           <tbody>
-            <% for(let i = 0 ; i < sendListaGastosReversa.length ; i++) { %>
+            <% for(let i=0 ; i < sendListaGastosReversa.length ; i++) { %>
               <tr>
                 <td>
                   <span style="color: red;">$</span>
@@ -161,39 +166,89 @@
                   </span>
                 </td>
                 <td>
-                  <a style="background-color: red; color: white;" class="material-symbols-outlined" onclick="deleteGastos(<%= i %>)">delete</a>
+                  <a style="background-color: red; color: white;" class="material-symbols-outlined"
+                    onclick="deleteGastos(<%= i %>)">delete</a>
                 </td>
               </tr>
               <% } %>
-            </tbody>
-          </table>
-          <div class="total-item">
-            <span>Total Gastos Caja:</span>
-            <input style="color: red;" readonly class="total-box" id="total-gastos" value="0" />
-          </div>
-          <div class="total-item">
-            <span>Total Gastos Negocio:</span>
-            <input style="color: red;" readonly class="total-box" id="total-gastos-negocio" value="0" />
-          </div>
+          </tbody>
+        </table>
+        <div class="total-item">
+          <span>Total Gastos Caja:</span>
+          <input style="color: red;" readonly class="total-box" id="total-gastos" value="0" />
+        </div>
+        <div class="total-item">
+          <span>Total Gastos Negocio:</span>
+          <input style="color: red;" readonly class="total-box" id="total-gastos-negocio" value="0" />
+        </div>
       </div>
     </div>
   </div>
   <script>
 
-    function deleteVenta(index){
-      location.href=`/eliminar-venta/${index}`
+    function deleteVenta(index) {
+      location.href = `/eliminar-venta/${index}`
     }
-    function deleteVentaTotales(index){
-      location.href=`/eliminar-venta-total/${index}`
+    function deleteVentaTotales(index) {
+      location.href = `/eliminar-venta-total/${index}`
     }
-    function deleteGastos(index){
-      location.href=`/eliminar-gasto/${index}`
+    function deleteGastos(index) {
+      location.href = `/eliminar-gasto/${index}`
     }
+
+    const $cerrarCaja = document.getElementById("cerrarCaja")
+    $cerrarCaja.addEventListener("click", (event) => {
+      event.preventDefault()
+      
+      const fechaActual= new Date();
+
+      const totalGlobal = document.getElementById("total-global").value
+      const totalEfectivo = document.getElementById("total-efectivo").value
+      const totalDebito = document.getElementById("total-debito").value
+      const totalTransferencia = document.getElementById("total-transferencia").value
+      const totalCredito = document.getElementById("total-credito").value
+      const totalGastos = document.getElementById("total-gastos").value
+      const totalGastosNegocio = document.getElementById("total-gastos-negocio").value
+
+      function filtrarNumerosYEliminarPrimerCaracter(cadena) {
+        const numerosFiltrados = cadena.replace(/[^0-9]/g, '');
+
+        return numerosFiltrados;
+      }
+
+      const totalGlobalFiltrado = filtrarNumerosYEliminarPrimerCaracter(totalGlobal);
+      const totalEfectivoFiltrado = filtrarNumerosYEliminarPrimerCaracter(totalEfectivo);
+      const totalDebitoFiltrado = filtrarNumerosYEliminarPrimerCaracter(totalDebito);
+      const totalTransferenciaFiltrado = filtrarNumerosYEliminarPrimerCaracter(totalTransferencia);
+      const totalCreditoFiltrado = filtrarNumerosYEliminarPrimerCaracter(totalCredito);
+      const totalGastosFiltrado = filtrarNumerosYEliminarPrimerCaracter(totalGastos);
+      const totalGastosNegocioFiltrado = filtrarNumerosYEliminarPrimerCaracter(totalGastosNegocio);
+
+      const formattedDate = fechaActual.toISOString().slice(0, 10)
+      const sendObj = { fecha: formattedDate, totalGlobal: totalGlobalFiltrado, totalEfectivo: totalEfectivoFiltrado, totalDebito: totalDebitoFiltrado, totalTransferencia: totalTransferenciaFiltrado, totalCredito: totalCreditoFiltrado, totalGastos: totalGastosFiltrado, totalGastosNegocio: totalGastosNegocioFiltrado }
+
+      fetch("/caja-mensual", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(sendObj),
+      })
+        .then((response) => {
+          response.json();
+        })
+        .then((data) => {
+          console.log("Respuesta del servidor:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        })
+    })
 
     const $gastosButton = document.getElementById("gastosButton")
     $gastosButton.addEventListener("click", (event) => {
       event.preventDefault()
-      location.href="/ingresar-gasto"
+      location.href = "/ingresar-gasto"
     })
 
     const gastos = document.querySelectorAll(".gastos")
@@ -211,7 +266,7 @@
 
     gastosFormatArr = []
     gastosNew.map((a, index) => {
-      let obj = {gasto:gastosNew[index], tipoGasto:tipoGastosNew[index]}
+      let obj = { gasto: gastosNew[index], tipoGasto: tipoGastosNew[index] }
       gastosFormatArr.push(obj)
     })
 
@@ -219,10 +274,10 @@
     $totalGastosCaja = 0
     $totalGastosNegocio = 0
     gastosFormatArr.map((item) => {
-      if(item.tipoGasto == "CAJA DIARIA"){
+      if (item.tipoGasto == "CAJA DIARIA") {
         $totalGastosCaja += parseInt(item.gasto)
       }
-      if(item.tipoGasto == "FONDOS NEGOCIO"){
+      if (item.tipoGasto == "FONDOS NEGOCIO") {
         $totalGastosNegocio += parseInt(item.gasto)
       }
     })

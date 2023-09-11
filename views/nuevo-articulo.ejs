@@ -119,7 +119,7 @@
     }
 
     const form = document.getElementById("product-form");
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("click", (event) => {
       event.preventDefault()
       fetch("/new-article", {
         method: "POST",
