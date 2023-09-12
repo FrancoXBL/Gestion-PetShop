@@ -200,7 +200,20 @@ router.get("/caja-mensual", (req, res) => {
 })
 router.post("/caja-mensual", (req, res) => {
   const obj = req.body
-  listaCajaMensual.push(obj)
+
+  if(listaCajaMensual.length < 1){
+    listaCajaMensual.push(obj)
+  }
+
+  listaCajaMensual.map((item, index) => {
+    if(obj.fecha == item.fecha){
+      listaCajaMensual[index] = obj
+      return
+    }
+    listaCajaMensual.push(obj)
+    return
+  })
+
   actualizarCajaDiaria(listaCajaMensual, rutaCajaMensual)
 })
 

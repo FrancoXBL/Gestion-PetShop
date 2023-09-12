@@ -40,7 +40,7 @@
           <p>Telefono:<span id="vistaPreviaTelefono"></span></p>
         </div>
         <div class="window-content">
-          <button type="submit" style="background-color: rgb(76, 76, 134); margin-bottom: 5px" id="submitForm"
+          <button style="background-color: rgb(76, 76, 134); margin-bottom: 5px" id="submitForm"
             class="form-button">
             Aceptar y Crear!
           </button>
@@ -97,8 +97,8 @@
       windowElement.classList.toggle("visible");
     }
 
-    const form = document.getElementById("product-form");
-    form.addEventListener("submit", (event) => {
+    const submitForm = document.getElementById("submitForm");
+    submitForm.addEventListener("click", (event) => {
       event.preventDefault()
       fetch("/new-clientes", {
         method: "POST",

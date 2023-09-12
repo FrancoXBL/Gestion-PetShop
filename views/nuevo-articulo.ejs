@@ -45,7 +45,7 @@
         <label style="margin-right: 4px;" for="stock">Stock:</label>
         <input type="number" id="stock" name="stock" />
       </div>
-      <button type="button" style="background-color: rgb(93, 150, 93)" class="form-button" id="next">Siguiente</button>
+      <button style="background-color: rgb(93, 150, 93)" class="form-button" id="next">Siguiente</button>
       <div id="window" class="window">
         <div class="window-content">
           <h4>VISTA PREVIA</h4>
@@ -74,6 +74,7 @@
     nextButton = document.getElementById("next")
     console.log(nextButton)
     nextButton.addEventListener('click', (event) => {
+      event.preventDefault()
 
       let name = document.getElementById("name").value.toUpperCase();
       let option = document.getElementById("option-tipo").value;
@@ -118,8 +119,8 @@
       windowElement.classList.toggle("visible");
     }
 
-    const form = document.getElementById("product-form");
-    form.addEventListener("click", (event) => {
+    const submitForm = document.getElementById("submitForm");
+    submitForm.addEventListener("click", (event) => {
       event.preventDefault()
       fetch("/new-article", {
         method: "POST",
