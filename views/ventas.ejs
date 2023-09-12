@@ -62,7 +62,7 @@
           </div>
         </div>
         <div class="space-between">
-          <button type="submit" style="background-color: rgb(76, 76, 134); margin-bottom: 5px" class="form-button">
+          <button id="completarVenta" style="background-color: rgb(76, 76, 134); margin-bottom: 5px" class="form-button">
             Completar venta!
           </button>
         </div>
@@ -274,8 +274,8 @@
       location.reload()
     });
 
-    const form = document.getElementById("product-form");
-    form.addEventListener("submit", (event) => {
+    const $completarVenta = document.getElementById("completarVenta");
+    $completarVenta.addEventListener("click", (event) => {
       event.preventDefault();
 
       if (window.ticketListaItems.length == 0) {
