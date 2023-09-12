@@ -20,11 +20,11 @@ body {
 /* Estilos de encabezado */
 
 header {
-  max-width: 80vw;
+  max-width: 100%;
   margin: auto;
   background-color: #333;
   color: #fff;
-  padding: 20px;
+  padding: 20px
 }
 
 h1 {
@@ -223,7 +223,7 @@ select {
 }
 
 .list-container {
-  max-width: 80vw;
+  max-width: 100%;
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
@@ -305,15 +305,16 @@ body {
 }
 
 .listContainer {
-  height: 600px;
-  width: 400px;
+  height: 700px;
+  width: 60%;
   display: block;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .blokeventas {
   margin: auto;
-  max-width: 80vw;
+  max-width: 100%;
   display: flex;
 }
 .material-symbols-outlined{

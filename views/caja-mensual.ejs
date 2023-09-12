@@ -2,7 +2,7 @@
     <header>
         <h1>CAJA MENSUAL</h1>
     </header>
-    <div style="max-width: 40%;" class="list-container">
+    <div class="list-container">
         <table class="button-table">
             <thead>
                 <tr>
@@ -20,45 +20,48 @@
                 <% for(let i=0 ; i < listaCajaMensual.length ; i++) { %>
                     <tr>
                         <td>
-                            <span id="cliente-<%= i %>">
+                            <span  id="cliente-<%= i %>">
                                 <%= listaCajaMensual[i].fecha %>
                             </span>
                         </td>
                         <td>
-                            <span id="cliente-<%= i %>">
+                            <span style="color: green;">$</span>
+                            <span  style="color: green;" id="cliente-<%= i %>">
                                 <%= listaCajaMensual[i].totalGlobal %>
                             </span>
                         </td>
                         <td>
-                            <span id="cliente-<%= i %>">
+                            <span style="color: green;">$</span>
+                            <span style="color: green;" id="cliente-<%= i %>">
                                 <%= listaCajaMensual[i].totalEfectivo %>
                             </span>
                         <td>
-                            <span id="cliente-<%= i %>">
+                            <span style="color: green;">$</span>
+                            <span style="color: green;" id="cliente-<%= i %>">
                                 <%= listaCajaMensual[i].totalDebito %>
                             </span>
                         </td>
                         <td>
-
-                            <span id="cliente-<%= i %>">
+                            <span style="color: green;">$</span>
+                            <span style="color: green;" id="cliente-<%= i %>">
                                 <%= listaCajaMensual[i].totalTransferencia %>
                             </span>
                         </td>
                         <td>
-
-                            <span id="cliente-<%= i %>">
+                            <span style="color: green;">$</span>
+                            <span style="color: green;" id="cliente-<%= i %>">
                                 <%= listaCajaMensual[i].totalCredito %>
                             </span>
                         </td>
                         <td>
-
-                            <span id="cliente-<%= i %>">
+                            <span style="color: red;">$</span>
+                            <span style="color: red;" id="cliente-<%= i %>">
                                 <%= listaCajaMensual[i].totalGastos %>
                             </span>
                         </td>
                         <td>
-
-                            <span id="cliente-<%= i %>">
+                            <span style="color: red;">$</span>
+                            <span style="color: red;" id="cliente-<%= i %>">
                                 <%= listaCajaMensual[i].totalGastosNegocio %>
                             </span>
                         </td>
