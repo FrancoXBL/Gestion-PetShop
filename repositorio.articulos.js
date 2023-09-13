@@ -171,7 +171,7 @@ function fechaDeActualizacion(data){
 function verificarYCrearArchivoExcelCajaMensual() {
   const carpetaCajasMensuales = 'cajas-mensuales';
   const fechaActual = new Date();
-  const fechaFormato = fechaActual.getMonth() + "-" + fechaActual.getFullYear()
+  const fechaFormato = fechaActual.getMonth()+1 + "-" + fechaActual.getFullYear()
 
   const nombreArchivo = `mes-${fechaFormato}.xlsx`;
   const rutaArchivo = path.join(__dirname, carpetaCajasMensuales, nombreArchivo);
