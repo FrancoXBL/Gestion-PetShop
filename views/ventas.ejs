@@ -72,7 +72,7 @@
           <h3>VENTA CONCRETADA!</h3>
         </div>
         <div class="window-content">
-          <button style="background-color: rgb(93, 150, 93)" onclick="cerrarVentana()" id="button2"
+          <button style="background-color: rgb(93, 150, 93)" onclick="location.reload()" id="button2"
             class="window-button">
             Aceptar
           </button>
@@ -298,6 +298,7 @@
         const $totalLista = document.getElementById("total-lista");
         removerItems($totalLista);
         console.log(formData)
+
         fetch("/nueva-venta", {
           method: "POST",
           headers: {
@@ -314,6 +315,7 @@
           .catch((error) => {
             console.error("Error:", error);
           });
+
 
         textPrint = `<p style="font-size: 30px;
   text-align: center;">TICKET DE VENTA</p><hr>`
