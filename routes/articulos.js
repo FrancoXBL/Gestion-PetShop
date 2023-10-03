@@ -110,6 +110,7 @@ router.get("/edit-article", (req, res) => {
 router.get("/edit-article-id/:id", (req, res) => {
   const article = lista[req.params.id];
   res.render("editar-articulo-id", { article });
+  console.log(article)
 });
 
 router.post("/edit-article-id", (req, res) => {

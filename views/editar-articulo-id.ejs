@@ -26,6 +26,10 @@
             <div class="form-group">
                 <label for="tipo">Tipo:</label>
                 <input type="text" id="tipo" name="tipo" value="<%= article.tipo.toUpperCase() %>" readonly/>
+                <label for="tipo">Edad:</label>
+                <input type="text" id="tipoEdad" name="tipo" value="<%= article.tipoEdad %>" />
+                <label for="tipo">Mordida:</label>
+                <input type="text" id="tipoMordida" name="tipo" value="<%= article.tipoMordida %>" />
             </div>
             <div class="form-group">
                 <label for="stock">Stock:</label>
@@ -74,6 +78,8 @@
                 let name = document.getElementById("name").value.toUpperCase();
                 let peso = parseInt(document.getElementById("peso").value);
                 let tipo = document.getElementById("tipo").value;
+                let tipoEdad = document.getElementById("tipoEdad").value;
+                let tipoMordida = document.getElementById("tipoMordida").value;
                 let precio = parseInt(document.getElementById("precio").value);
                 let precioSuelto = parseInt(document.getElementById("precio-suelto").value);
                 let stock = parseInt(document.getElementById("stock").value);
@@ -83,7 +89,7 @@
                 } else {
                     const idEnviar = parseInt(document.getElementById("idEnviar").innerHTML)
 
-                    window.formData = {id:idEnviar, name, peso, tipo, price:precio, precioSuelto, stock:stock }
+                    window.formData = {id:idEnviar, name, peso, tipo, tipoEdad , tipoMordida, price:precio, precioSuelto, stock:stock }
 
                     const vpArticulo = document.getElementById("vistaPreviaArticulo")
                     const vpPeso = document.getElementById("vistaPreviaPeso")
