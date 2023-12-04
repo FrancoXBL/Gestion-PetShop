@@ -19,7 +19,8 @@
             <option value="3">Gato</option>
             <option value="4">Forraje</option>
             <option value="5">Accesorios</option>
-            <option value="6">Otros</option>
+            <option value="6">Farmacia</option>
+            <option value="7">Otros</option>
           </select>
           <label for="option-edad">Edad:</label>
           <select id="option-edad" name="option-edad">
@@ -98,6 +99,7 @@
             <th>Tipo</th>
             <th>Edad</th>
             <th>Mordida</th>
+            <th>Stock</th>
             <th>Precio</th>
             <th>Precio Suelto</th>
           </tr>
@@ -132,6 +134,13 @@
               </td>
               <td>
                 <span id="cliente-<%= i %>">
+                  <%= newList[i].stock %>
+                </span>
+              </td>
+
+              <td>
+                <span style="color: green;">$</span>
+                <span style="color: green;" id="cliente-<%= i %>">
                   <%= newList[i].price %>
                 </span>
               </td>
@@ -169,13 +178,14 @@
       removerItems($totalLista);
 
       window.ticketListaItems.map((aTicketListaItem, index) => {
+
         const $div = document.createElement("div");
         $div.classList.add("ticket__item");
 
         const $spanDescripcion = document.createElement("span");
 
         $spanDescripcion.innerHTML =
-          `${aTicketListaItem.name} ${aTicketListaItem.tipos} de ${aTicketListaItem.peso}kg - $${aTicketListaItem.price}`.toUpperCase();
+          `${aTicketListaItem.name} ${aTicketListaItem.tipos} ${aTicketListaItem.tiposMordida} ${aTicketListaItem.tiposEdad} de ${aTicketListaItem.peso}kg - $${aTicketListaItem.price}`.toUpperCase();
 
         $div.appendChild($spanDescripcion);
 
@@ -238,7 +248,7 @@
         alert("Complete todos los campos");
       } else {
 
-        const tipos = ["SUELTO", "PERRO", "GATO", "FORRAJE", "ACCESORIOS", "OTROS"];
+        const tipos = ["SUELTO", "PERRO", "GATO", "FORRAJE", "ACCESORIOS","FARMACIA" , "OTROS"];
         const tiposEdad = ["-", "ADULTO", "CACHORRO", "SENIOR"];
         const tiposMordida = ["-", "GRANDE", "MEDIANA", "PEQUENIA"];
 
@@ -257,7 +267,7 @@
 
         colocarPrecioTotal();
 
-        document.getElementById("name").value = "";
+        document.getElementById("name").value = "-";
         document.getElementById("price").value = "";
         document.getElementById("peso").value = "0";
       }
@@ -322,8 +332,8 @@
 
         forPrint.map((data, index) => {
 
-          let { name, price, tipos, peso } = data
-          textPrint += `<p>${name} ${tipos} de ${peso} - $${price}</p>`
+          let { name, price, tipos, peso, tiposEdad, tiposMordida } = data
+          textPrint += `<p>${name} ${tipos} ${tiposMordida} ${tiposEdad} de ${peso} - $${price}</p>`
         })
 
         textPrint += `<hr><p style="font-size: 20px;">Total: $${textTotal} - ${option}</p>`
