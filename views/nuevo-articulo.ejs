@@ -19,6 +19,8 @@
           <option value="5">Farmacia</option>
           <option value="6">Otros</option>
         </select>
+        <label for="code">Codigo:</label>
+        <input type="text" id="code" name="code">
         <label for="option">Edad:</label>
         <select id="option-edad" name="option-tipo">
           <option value="1">-</option>
@@ -79,6 +81,7 @@
 
       let name = document.getElementById("name").value.toUpperCase();
       let option = document.getElementById("option-tipo").value;
+      let code = document.getElementById("code").value;
       let valorEdad = document.getElementById("option-edad").value;
       let valorMordida = document.getElementById("option-mordida").value;
       let peso = document.getElementById("peso").value;
@@ -93,7 +96,7 @@
         alert("Complete todos los campos");
       } else {
 
-        window.formData = { name, tipo: optionTipo[option - 1], tipoEdad:optionEdad[valorEdad - 1], tipoMordida:optionMordida[valorMordida - 1], peso, price,precioSuelto:priceSuelto, stock }
+        window.formData = { name, code, tipo: optionTipo[option - 1],tipoEdad:optionEdad[valorEdad - 1], tipoMordida:optionMordida[valorMordida - 1], peso, price,precioSuelto:priceSuelto, stock }
 
         const vpName = document.getElementById("vistaPreviaAlimento")
         const vpTipo = document.getElementById("vistaPreviaTipo")

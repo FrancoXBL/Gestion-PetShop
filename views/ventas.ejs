@@ -95,11 +95,12 @@
         <thead>
           <tr>
             <th>Nombre</th>
-            <th>KG</th>
+            <th>Code</th>
             <th>Tipo</th>
-            <th>Edad</th>
             <th>Mordida</th>
+            <th>Edad</th>
             <th>Stock</th>
+            <th>KG</th>
             <th>Precio</th>
             <th>Precio Suelto</th>
           </tr>
@@ -114,7 +115,7 @@
               </td>
               <td>
                 <span id="cliente-<%= i %>">
-                  <%= newList[i].peso %>
+                  <%= newList[i].code %>
                 </span>
               </td>
               <td>
@@ -137,7 +138,11 @@
                   <%= newList[i].stock %>
                 </span>
               </td>
-
+              <td>
+                <span id="cliente-<%= i %>">
+                  <%= newList[i].peso %>
+                </span>
+              </td>
               <td>
                 <span style="color: green;">$</span>
                 <span style="color: green;" id="cliente-<%= i %>">
